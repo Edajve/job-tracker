@@ -18,7 +18,7 @@ const MainDisplay = () => {
     <Flex flexFlow="column" padding={5} background="gray.600">
       <Box height="100px">
         <Menu>
-          <HStack marginTop="3rem">
+          <HStack marginTop="1rem">
             <MenuButton as={Button} rightIcon={<BsChevronDown />}>
               Order By: Relevance
             </MenuButton>
