@@ -35,7 +35,7 @@ const MainDisplay = () => {
           </MenuList>
         </Menu>
       </Box>
-      <Box height="70vh" border="1px solid gray" borderRadius="10px">
+      <Box height="70vh" border="2px solid gray" borderRadius="10px">
         <ApplicationLists />
       </Box>
     </Flex>
