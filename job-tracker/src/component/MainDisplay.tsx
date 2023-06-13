@@ -12,13 +12,17 @@ import {
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import ApplicationLists from "./ApplicationLists";
+import { ArrowLeftIcon } from '@chakra-ui/icons'
 
 const MainDisplay = () => {
   return (
-    <Flex flexFlow="column" padding={5} background="gray.600">
+    <Flex flexFlow="column" padding={5} /*background="gray.600"*/>
       <Box height="100px">
         <Menu>
-          <HStack marginTop="1rem">
+          <HStack marginTop="2rem">
+            <Button>
+              <ArrowLeftIcon />
+            </Button>
             <MenuButton as={Button} rightIcon={<BsChevronDown />}>
               Order By: Relevance
             </MenuButton>
