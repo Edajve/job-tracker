@@ -3,6 +3,6 @@
     "@chakra-ui/icons": "^2.0.19",
     "react-hook-form": "^7.44.3",
     "react-icons": "^4.9.0",
-    "xlsx": "^0.18.5"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.3/xlsx-0.19.3.tgz"
   }
 }
