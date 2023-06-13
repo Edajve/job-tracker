@@ -1,5 +1,4 @@
 import useExcel from "../hooks/useExcel";
-import { read, utils } from "xlsx";
 
 const FileDownload = () => {
   const onSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
