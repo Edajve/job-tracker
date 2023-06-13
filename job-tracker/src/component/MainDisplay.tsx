@@ -18,7 +18,7 @@ const MainDisplay = () => {
     <Flex flexFlow="column" padding={5} background="gray.600">
       <Box height="100px">
         <Menu>
-          <HStack marginTop="3rem">
+          <HStack marginTop="1rem">
             <MenuButton as={Button} rightIcon={<BsChevronDown />}>
               Order By: Relevance
             </MenuButton>
@@ -35,7 +35,7 @@ const MainDisplay = () => {
           </MenuList>
         </Menu>
       </Box>
-      <Box height="70vh" border="1px solid gray" borderRadius="10px">
+      <Box height="70vh" border="2px solid gray" borderRadius="10px">
         <ApplicationLists />
       </Box>
     </Flex>
