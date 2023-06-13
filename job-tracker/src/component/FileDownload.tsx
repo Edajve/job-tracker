@@ -1,17 +1,15 @@
-import { read } from "xlsx";
+import useExcel from "../hooks/useExcel";
+import { read, utils } from "xlsx";
 
 const FileDownload = () => {
   const onSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const data = new Uint8Array(e.target?.result as ArrayBuffer);
-        const workbook = read(data, { type: "array" });
-        console.log(workbook);
-      };
-      reader.readAsArrayBuffer(file);
-    }
+    useExcel(event)
+    .then((jsonData: any) => {
+      console.log(jsonData);
+    })
+    .catch((error: Error) => {
+      console.error("Error reading file:", error);
+    });
   };
 
   return (
