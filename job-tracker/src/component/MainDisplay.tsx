@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import ApplicationLists from "./ApplicationLists";
+import { ArrowLeftIcon } from '@chakra-ui/icons'
 
 const MainDisplay = () => {
   return (
@@ -19,6 +20,9 @@ const MainDisplay = () => {
       <Box height="100px">
         <Menu>
           <HStack marginTop="1rem">
+            <Button>
+              <ArrowLeftIcon />
+            </Button>
             <MenuButton as={Button} rightIcon={<BsChevronDown />}>
               Order By: Relevance
             </MenuButton>
