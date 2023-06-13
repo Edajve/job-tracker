@@ -16,7 +16,7 @@ import { ArrowLeftIcon } from '@chakra-ui/icons'
 
 const MainDisplay = () => {
   return (
-    <Flex flexFlow="column" padding={5} background="gray.600">
+    <Flex flexFlow="column" padding={5} /*background="gray.600"*/>
       <Box height="100px">
         <Menu>
           <HStack marginTop="2rem">

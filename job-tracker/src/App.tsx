@@ -3,6 +3,7 @@ import { Divider, Show } from "@chakra-ui/react";
 import "./App.css";
 import NavBar from "./component/NavBar";
 import MainDisplay from "./component/MainDisplay";
+import ListActions from "./component/ListActions";
 
 function App() {
   return (
@@ -18,13 +19,11 @@ function App() {
       <GridItem as="nav" height="100px">
         <NavBar />
       </GridItem>
-
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
-          Aside
+          <ListActions />
         </GridItem>
       </Show>
-
       <GridItem area="main" height="100vh" marginTop="2px">
         <Divider borderColor="gray.200" />
         <MainDisplay />

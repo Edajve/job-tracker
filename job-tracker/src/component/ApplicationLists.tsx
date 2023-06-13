@@ -19,7 +19,7 @@ const ApplicationLists = () => {
 
   return (
     <Box height="300px">
-      <TableContainer overflowY="scroll">
+      <TableContainer>
         <Table variant="simple">
           <Thead>
             <Tr>
