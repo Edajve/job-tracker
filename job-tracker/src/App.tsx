@@ -1,7 +1,8 @@
 import { Grid, GridItem } from "@chakra-ui/layout";
-import { Show } from "@chakra-ui/react";
+import { Divider, Show } from "@chakra-ui/react";
 import "./App.css";
 import NavBar from "./component/NavBar";
+import MainDisplay from "./component/MainDisplay";
 
 function App() {
   return (
@@ -12,18 +13,21 @@ function App() {
       }}
       templateColumns={{
         base: "1fr",
-        lg: "200px 1fr",
+        lg: "250px 1fr",
       }}>
-      <GridItem background="blue.200" as="nav" height="80px">
+      <GridItem as="nav" height="100px">
         <NavBar />
       </GridItem>
+
       <Show above="lg">
-        <GridItem background="green.200" area="aside" paddingX={5}>
+        <GridItem area="aside" paddingX={5}>
           Aside
         </GridItem>
       </Show>
-      <GridItem background="orange.200" area="main">
-        main
+
+      <GridItem area="main" height="100vh" marginTop="2px">
+        <Divider borderColor="gray.200" />
+        <MainDisplay />
       </GridItem>
     </Grid>
   );
