@@ -23,16 +23,16 @@ const ApplicationLists = () => {
         <Table variant="simple">
           <Thead>
             <Tr>
-              {amountOfHeaders.map((header) => (
-                <Th>row {header}</Th>
+              {amountOfHeaders.map((header, index) => (
+                <Th key={index}>row {header}</Th>
               ))}
             </Tr>
           </Thead>
           <Tbody>
-            {amountOfRowsInAList.map(() => (
-              <Tr>
-                {amountOfColumnsInAList.map((column) => (
-                  <Td>{column}</Td>
+            {amountOfRowsInAList.map((list) => (
+              <Tr key={list}>
+                {amountOfColumnsInAList.map((column, index) => (
+                  <Td key={index}>{column}</Td>
                 ))}
               </Tr>
             ))}
