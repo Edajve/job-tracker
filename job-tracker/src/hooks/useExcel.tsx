@@ -1,23 +1,41 @@
-import { read, utils, WorkSheet, WorkBook } from "xlsx";
+import * as XLSX from 'xlsx';
 
-const useExcel = (event: React.ChangeEvent<HTMLInputElement>): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    const file = event.target.files?.[0];
-    if (file) {
+function useExcel() {
+  const readExcel = (file: File) => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = function (e) {
+      
+      reader.onload = (e: ProgressEvent<FileReader>) => {
         const data = new Uint8Array(e.target?.result as ArrayBuffer);
-        const workbook: WorkBook = read(data, { type: "array" });
-        const worksheet: WorkSheet = workbook.Sheets[workbook.SheetNames[0]];
-        const jsonData = utils.sheet_to_json(worksheet);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
         resolve(jsonData);
       };
-      reader.onerror = reject;
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+
       reader.readAsArrayBuffer(file);
-    } else {
-      reject(new Error("No file selected."));
+    });
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      try {
+        const jsonData = await readExcel(file);
+        console.log(jsonData); // or do whatever you want with the JSON data
+      } catch (error) {
+        console.error('Error reading Excel file:', error);
+      }
     }
-  });
-};
+  };
+
+  return { handleFileUpload };
+}
 
 export default useExcel;

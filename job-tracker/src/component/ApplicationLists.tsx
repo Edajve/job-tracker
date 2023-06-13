@@ -9,13 +9,22 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import ApplicationListPages from "./ApplicationListPages";
+import { useEffect, useState } from "react";
+import useExcel from "../hooks/useExcel";
+
 
 const ApplicationLists = () => {
+
   const amountOfHeaders = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
   ];
   const amountOfRowsInAList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const amountOfColumnsInAList = amountOfHeaders;
+
+  useEffect(() => {
+    const { handleFileUpload } = useExcel();
+    console.log(handleFileUpload)
+  },[]);
 
   return (
     <Box height="300px">
