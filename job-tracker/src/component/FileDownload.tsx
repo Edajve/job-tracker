@@ -50,7 +50,7 @@ const FileDownload = ({ fromFileToNav }: Props) => {
         type="file"
         id="excel"
         name="excel"
-        accept="xlsx, xls"
+        accept=".xlsx, .xls"
         multiple={false}
       />
     </>
