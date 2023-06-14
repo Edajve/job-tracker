@@ -12,11 +12,28 @@ import {
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import ApplicationLists from "./ApplicationLists";
-import { ArrowLeftIcon } from '@chakra-ui/icons'
+import { ArrowLeftIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
 
-const MainDisplay = () => {
+interface Props {
+  appToMain: any;
+}
+
+const MainDisplay = ({ appToMain }: Props) => {
+  const [excel, setExcel] = useState<null | undefined>(null);
+
+  useEffect(() => {
+    setExcel(appToMain);
+  }, [excel]);
+
+  const passHeader = () => {
+    if (appToMain) {
+      return appToMain[0];
+    }
+  };
+
   return (
-    <Flex flexFlow="column" padding={5} /*background="gray.600"*/>
+    <Flex flexFlow="column" padding={5}>
       <Box height="100px">
         <Menu>
           <HStack marginTop="2rem">
@@ -40,7 +57,7 @@ const MainDisplay = () => {
         </Menu>
       </Box>
       <Box height="70vh" border="2px solid gray" borderRadius="10px">
-        <ApplicationLists />
+        <ApplicationLists headers={passHeader()} />
       </Box>
     </Flex>
   );

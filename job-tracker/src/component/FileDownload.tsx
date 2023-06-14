@@ -1,14 +1,45 @@
-import useExcel from "../hooks/useExcel";
+import { useEffect, useState } from "react";
+import XLSX from "xlsx";
 
-const FileDownload = () => {
+interface Props {
+  fromFileToNav: (data: any) => void;
+}
+
+const FileDownload = ({ fromFileToNav }: Props) => {
+  const [sheetData, setSheetData] = useState<null | unknown>(null);
+
+  useEffect(() => {
+    if (sheetData !== null) fromFileToNav(sheetData);
+  }, [sheetData]);
+
   const onSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    useExcel(event)
-    .then((jsonData: any) => {
-      console.log(jsonData);
-    })
-    .catch((error: Error) => {
-      console.error("Error reading file:", error);
-    });
+    const readDataFromExcel = (
+      data: string | ArrayBuffer | null | undefined
+    ) => {
+      if (data instanceof ArrayBuffer) {
+        const workbook = XLSX.read(data, { type: "array" });
+        let sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+        setSheetData(jsonData);
+      }
+    };
+
+    const myFile = event.target.files?.[0];
+
+    if (!myFile && myFile !== undefined) {
+      return;
+    } else {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const data = e.target?.result;
+        readDataFromExcel(data);
+      };
+
+      if (myFile) {
+        reader.readAsArrayBuffer(myFile);
+      }
+    }
   };
 
   return (
@@ -19,7 +50,8 @@ const FileDownload = () => {
         type="file"
         id="excel"
         name="excel"
-        accept=".xlsx"
+        accept="xlsx, xls"
+        multiple={false}
       />
     </>
   );

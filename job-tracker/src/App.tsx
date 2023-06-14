@@ -4,8 +4,15 @@ import "./App.css";
 import NavBar from "./component/NavBar";
 import MainDisplay from "./component/MainDisplay";
 import ListActions from "./component/ListActions";
+import { useState } from "react";
 
 function App() {
+  const [excelData, setExcelData] = useState<null | undefined>(null);
+
+  const recieveState = (data: any) => {
+    setExcelData(data);
+  };
+
   return (
     <Grid
       templateAreas={{
@@ -17,7 +24,7 @@ function App() {
         lg: "250px 1fr",
       }}>
       <GridItem as="nav" height="100px">
-        <NavBar />
+        <NavBar fromNavToApp={(data) => recieveState(data)} />
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
@@ -26,7 +33,7 @@ function App() {
       </Show>
       <GridItem area="main" height="100vh" marginTop="2px">
         <Divider borderColor="gray.200" />
-        <MainDisplay />
+        <MainDisplay appToMain={excelData} />
       </GridItem>
     </Grid>
   );
