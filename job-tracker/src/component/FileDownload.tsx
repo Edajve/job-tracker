@@ -9,7 +9,12 @@ const FileDownload = ({ fromFileToNav }: Props) => {
   const [sheetData, setSheetData] = useState<null | unknown>(null);
 
   useEffect(() => {
-    if (sheetData !== null) fromFileToNav(sheetData);
+    if (sheetData !== null) {
+      fromFileToNav(sheetData);
+      //grab the data from excel, store that json in a var and stringify it
+      const jsonString = JSON.stringify(sheetData);
+      localStorage.setItem("excelDataInLocal", jsonString);
+    }
   }, [sheetData]);
 
   const onSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,13 +40,11 @@ const FileDownload = ({ fromFileToNav }: Props) => {
         const data = e.target?.result;
         readDataFromExcel(data);
       };
-
       if (myFile) {
         reader.readAsArrayBuffer(myFile);
       }
     }
   };
-
   return (
     <>
       <label htmlFor="excel">Choose Excel Sheet:</label>
