@@ -92,7 +92,7 @@ const ApplicationLists = ({ headers }: Props) => {
           </Tbody>
         </Table>
       </TableContainer>
-      <ApplicationListPages />
+      {rowData?.length !== 0 && <ApplicationListPages />}
     </Box>
   );
 };
