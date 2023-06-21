@@ -1,8 +1,5 @@
 import {
   Box,
-  Divider,
-  Grid,
-  Heading,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
@@ -51,6 +48,11 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
     borderRadius: "10px",
     padding: "1rem",
     overflow: "hidden",
+    transition: "background-color 0.3s",
+    ":hover": {
+      backgroundColor: "blue.800",
+      cursor: "pointer",
+    },
   };
 
   if (singleApplication === null || singleApplication === undefined) return;
@@ -61,7 +63,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
         <Text sx={titleStyles} as="b" fontSize="2xl">
           Site:
         </Text>
-        <Text sx={descriptionStyles}>{application?.Site}</Text>
+            <Text sx={descriptionStyles}>{application?.Site}</Text>
       </Box>
       <Box sx={boxStyles} bg="blue.900" height="200px">
         <Text sx={titleStyles} as="b" fontSize="2xl">
