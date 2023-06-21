@@ -21,7 +21,7 @@ function App() {
       }}
       templateColumns={{
         base: "1fr",
-        lg: "250px 1fr",
+        lg: "250px 2fr",
       }}>
       <GridItem as="nav" height="100px">
         <NavBar fromNavToApp={(data) => recieveState(data)} />
@@ -31,7 +31,7 @@ function App() {
           <ListActions />
         </GridItem>
       </Show>
-      <GridItem area="main" height="100vh" marginTop="2px">
+      <GridItem area="main" height="140vh" marginTop="2px">
         <Divider borderColor="gray.200" />
         <MainDisplay appToMain={excelData} />
       </GridItem>
