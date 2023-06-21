@@ -31,7 +31,7 @@ function App() {
           <ListActions />
         </GridItem>
       </Show>
-      <GridItem area="main" height="140vh" marginTop="2px">
+      <GridItem overflow="hidden" area="main" height="140vh" marginTop="2px">
         <Divider borderColor="gray.200" />
         <MainDisplay appToMain={excelData} />
       </GridItem>
