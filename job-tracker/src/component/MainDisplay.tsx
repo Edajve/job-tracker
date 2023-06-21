@@ -34,7 +34,7 @@ const MainDisplay = ({ appToMain }: Props) => {
 
   return (
     <Flex flexFlow="column" padding={5}>
-      <Box height="100px">
+      <Box height="120px">
         <Menu>
           <HStack marginTop="2rem">
             <Button>
@@ -56,7 +56,7 @@ const MainDisplay = ({ appToMain }: Props) => {
           </MenuList>
         </Menu>
       </Box>
-      <Box height="70vh" border="2px solid gray" borderRadius="10px">
+      <Box height="97vh" border="2px solid gray" borderRadius="10px">
         <ApplicationLists headers={passHeader()} />
       </Box>
     </Flex>
