@@ -15,12 +15,14 @@ import SingleAppDisplay from "./SingleAppDisplay";
 
 interface Props {
   headers: (data: any) => void;
+  backButtonState: boolean;
 }
 
-const ApplicationLists = ({ headers }: Props) => {
+const ApplicationLists = ({ headers, backButtonState,}: Props) => {
   const [allExcelData, setAllExcelData] = useState<undefined | any[]>([]);
   const [rowData, setRowData] = useState<undefined | any[]>([]);
   const [choosenApp, setChoosenApp] = useState<null | any>(null);
+  const [backButton, setBackButton] = useState<boolean>()
 
   const extractRowData = (array: any) => {
     const returningArray = [];
@@ -29,6 +31,11 @@ const ApplicationLists = ({ headers }: Props) => {
     }
     return returningArray;
   };
+
+  useEffect(() => {
+      setChoosenApp(null)
+  }, [backButtonState])
+  
 
   useEffect(() => {
     if (headers === undefined) return;
