@@ -21,7 +21,7 @@ interface Props {
 
 const MainDisplay = ({ appToMain }: Props) => {
   const [excel, setExcel] = useState<null | undefined>(null);
-  const [clickBack, setClickBack] = useState(false)
+  const [clickBack, setClickBack] = useState(false);
 
   useEffect(() => {
     setExcel(appToMain);
@@ -39,7 +39,7 @@ const MainDisplay = ({ appToMain }: Props) => {
         <Menu>
           <HStack marginTop="2rem">
             <Button onClick={() => setClickBack(!clickBack)}>
-              <ArrowLeftIcon/>
+              <ArrowLeftIcon />
             </Button>
             <MenuButton as={Button} rightIcon={<BsChevronDown />}>
               Order By: Relevance
@@ -58,7 +58,7 @@ const MainDisplay = ({ appToMain }: Props) => {
         </Menu>
       </Box>
       <Box height="97vh" border="2px solid gray" borderRadius="10px">
-        <ApplicationLists headers={passHeader()} backButtonState={clickBack}/>
+        <ApplicationLists headers={passHeader()} backButtonState={clickBack} />
       </Box>
     </Flex>
   );

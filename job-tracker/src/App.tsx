@@ -1,6 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/layout";
-import { Divider, Show } from "@chakra-ui/react";
 import "./App.css";
+import { Divider, Show } from "@chakra-ui/react";
 import NavBar from "./component/NavBar";
 import MainDisplay from "./component/MainDisplay";
 import ListActions from "./component/ListActions";
