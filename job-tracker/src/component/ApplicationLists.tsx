@@ -18,11 +18,10 @@ interface Props {
   backButtonState: boolean;
 }
 
-const ApplicationLists = ({ headers, backButtonState,}: Props) => {
+const ApplicationLists = ({ headers, backButtonState }: Props) => {
   const [allExcelData, setAllExcelData] = useState<undefined | any[]>([]);
   const [rowData, setRowData] = useState<undefined | any[]>([]);
   const [choosenApp, setChoosenApp] = useState<null | any>(null);
-  const [backButton, setBackButton] = useState<boolean>()
 
   const extractRowData = (array: any) => {
     const returningArray = [];
@@ -33,9 +32,8 @@ const ApplicationLists = ({ headers, backButtonState,}: Props) => {
   };
 
   useEffect(() => {
-      setChoosenApp(null)
-  }, [backButtonState])
-  
+    setChoosenApp(null);
+  }, [backButtonState]);
 
   useEffect(() => {
     if (headers === undefined) return;
