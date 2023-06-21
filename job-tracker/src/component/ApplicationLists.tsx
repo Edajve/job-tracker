@@ -7,6 +7,7 @@ import {
   Th,
   Thead,
   Tr,
+  useColorMode
 } from "@chakra-ui/react";
 import ApplicationListPages from "./ApplicationListPages";
 import { useEffect, useState } from "react";
@@ -55,6 +56,9 @@ const ApplicationLists = ({ headers }: Props) => {
     return text.substring(0, 70) + "...";
   };
 
+  const { colorMode } = useColorMode()
+  const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47" ;
+
   return (
     <Box height="300px">
       <TableContainer>
@@ -68,7 +72,7 @@ const ApplicationLists = ({ headers }: Props) => {
           </Thead>
           <Tbody>
             {rowData?.map((row, index) => (
-              <Tr key={index}>
+              <Tr _hover={{background: hoverColor}} cursor="pointer" key={index}>
                 <Td>{row.Site}</Td>
                 <Td>{row.Date}</Td>
                 <Td>{row.Date_applied_to}</Td>
