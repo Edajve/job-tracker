@@ -64,7 +64,7 @@ const ApplicationLists = ({ headers, backButtonState }: Props) => {
   const headerToArray = (): any[] => {
     var header = [];
     if (headers) {
-      for (const [key, value] of Object.entries(headers)) {
+      for (const [ value] of Object.entries(headers)) {
         header.push(value);
       }
     }
