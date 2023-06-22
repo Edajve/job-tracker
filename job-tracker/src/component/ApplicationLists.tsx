@@ -18,10 +18,18 @@ interface Props {
   backButtonState: boolean;
 }
 
+interface State {
+  allExcelData: any[];
+  rowData: any[];
+  choosenApp: null | any;
+}
+
 const ApplicationLists = ({ headers, backButtonState }: Props) => {
-  const [allExcelData, setAllExcelData] = useState<undefined | any[]>([]);
-  const [rowData, setRowData] = useState<undefined | any[]>([]);
-  const [choosenApp, setChoosenApp] = useState<null | any>(null);
+  const [state, setState] = useState<State>({
+    allExcelData: [],
+    rowData: [],
+    choosenApp: null,
+  });
 
   const extractRowData = (array: any) => {
     const returningArray = [];
@@ -32,7 +40,7 @@ const ApplicationLists = ({ headers, backButtonState }: Props) => {
   };
 
   useEffect(() => {
-    setChoosenApp(null);
+    setState((prevState) => ({ ...prevState, choosenApp: null }));
   }, [backButtonState]);
 
   useEffect(() => {
@@ -42,11 +50,14 @@ const ApplicationLists = ({ headers, backButtonState }: Props) => {
     if (retrievedFromLocal !== null) {
       const jsonBackToObject = JSON.parse(retrievedFromLocal);
       const headerData = extractRowData(jsonBackToObject);
-      setRowData(headerData);
-      setAllExcelData(jsonBackToObject);
+      setState((prevState) => ({
+        ...prevState,
+        allExcelData: jsonBackToObject,
+        rowData: headerData,
+      }));
     }
 
-    //remove data in local storage
+    //remove data in local storage because this data will persists past the program if not
     localStorage.removeItem("excelDataInLocal");
   }, [headers]);
 
@@ -71,13 +82,16 @@ const ApplicationLists = ({ headers, backButtonState }: Props) => {
   const handleClick = (item: number): void => {
     //you have to plus one for the onclick because the first application starts at 0
     //but in excel data index 0 is the header
-    setChoosenApp(allExcelData?.[item + 1]);
+    setState((prevState) => ({
+      ...prevState,
+      choosenApp: state.allExcelData?.[item + 1],
+    }));
   };
 
   return (
     <Box height="300px">
       <TableContainer>
-        {!choosenApp ? (
+        {!state.choosenApp ? (
           <Table variant="simple">
             <Thead>
               <Tr>
@@ -87,7 +101,7 @@ const ApplicationLists = ({ headers, backButtonState }: Props) => {
               </Tr>
             </Thead>
             <Tbody>
-              {rowData?.map((row, index) => (
+              {state.rowData?.map((row, index) => (
                 <Tr
                   _hover={{ background: hoverColor }}
                   cursor="pointer"
@@ -116,10 +130,12 @@ const ApplicationLists = ({ headers, backButtonState }: Props) => {
             </Tbody>
           </Table>
         ) : (
-          <SingleAppDisplay singleApplication={choosenApp} />
+          <SingleAppDisplay singleApplication={state.choosenApp} />
         )}
       </TableContainer>
-      {rowData?.length !== 0 && !choosenApp ? <ApplicationListPages /> : null}
+      {state.rowData?.length !== 0 && !state.choosenApp ? (
+        <ApplicationListPages />
+      ) : null}
     </Box>
   );
 };
