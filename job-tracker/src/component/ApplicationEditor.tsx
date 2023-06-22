@@ -7,7 +7,6 @@ import {
   List,
   ListIcon,
   ListItem,
-  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -60,17 +59,17 @@ const ApplicationEditor = ({ handleGoingBack }: Props) => {
         </Button>
       </Box>
       {isLoadingState && (
-          <List paddingTop={4} paddingLeft={2}>
-            <ListItem>
-              <ListIcon as={CheckCircleIcon} color="teal.400" />
-              Changes Saved
-            </ListItem>
-            <ListItem>
-              <ListIcon as={WarningIcon} color="red.400" />
-              Changes Not Saved
-            </ListItem>
-          </List>
-        )}
+        <List paddingTop={4} paddingLeft={2}>
+          <ListItem>
+            <ListIcon as={CheckCircleIcon} color="teal.400" />
+            Changes Saved
+          </ListItem>
+          <ListItem>
+            <ListIcon as={WarningIcon} color="red.400" />
+            Changes Not Saved
+          </ListItem>
+        </List>
+      )}
     </Box>
   );
 };
