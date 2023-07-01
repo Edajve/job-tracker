@@ -5,12 +5,21 @@ import NavBar from "./component/NavBar";
 import MainDisplay from "./component/MainDisplay";
 import ListActions from "./component/ListActions";
 import { useState } from "react";
+import readDataFromExcel from './hooks/useExcel'
 
 function App() {
   const [excelData, setExcelData] = useState<null | undefined>(null);
 
   const recieveState = (data: any) => {
-    setExcelData(data);
+    const excelFileBuffer = data
+    //you stopped right here, you have a hold fo the excel data that 
+    //comes from FileDownloader, now just take this excel data and
+    //pass it down using useContext, think about how you are going
+    //to set up the useContext, should it start off empty, or 
+    //initalize it with this 'readDataFromExcel(excelFileBuffer)'
+
+    //also, you should make a interface to the excel json
+   console.log(readDataFromExcel(excelFileBuffer))
   };
 
   return (
