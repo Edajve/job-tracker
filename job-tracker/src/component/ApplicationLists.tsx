@@ -21,37 +21,31 @@ interface Props {
 interface State {
   allExcelData: ExcelShape[];
   rowData: ExcelShape[];
-  choosenApp: null | any;
+  choosenApplication: null | any;
 }
 
 const ApplicationLists = ({ backButtonState }: Props) => {
   const [state, setState] = useState<State>({
     allExcelData: [],
     rowData: [],
-    choosenApp: null,
+    choosenApplication: null,
   });
-  const excelContext = useContext(ExcelContext)
-
-  // const extractRowData = (array: ExcelShape[]) => {
-  //   const returningArray = [];
-  //   for (var i = 1; i < array.length; i++) {
-  //     returningArray.push(array[i]);
-  //   }
-  //   return returningArray;
-  // };
+  const excelContext = useContext(ExcelContext);
 
   useEffect(() => {
-    setState((prevState) => ({ ...prevState, choosenApp: null }));
+    setState((prevState) => ({
+      ...prevState,
+      choosenApplication: null,
+    }));
   }, [backButtonState]);
-
 
   const objectToArray = (headerArray: ExcelShape): string[] => {
     var header = [];
     if (headerArray !== undefined && headerArray !== null) {
-      for (const [ value] of Object.entries(headerArray)) {
+      for (const [value] of Object.entries(headerArray)) {
         header.push(value);
+      }
     }
-  }
     return header;
   };
 
@@ -68,27 +62,24 @@ const ApplicationLists = ({ backButtonState }: Props) => {
     //but in excel data index 0 is the header
     setState((prevState) => ({
       ...prevState,
-      choosenApp: state.allExcelData?.[item + 1],
+      choosenApplication: excelContext[item + 1],
     }));
   };
 
   return (
     <Box height="300px">
       <TableContainer>
-        {!state.choosenApp ? (
+        {!state.choosenApplication ? (
           <Table variant="simple">
             <Thead>
               <Tr>
-                {/* {headerToArray().map((header, index) => (
-                  <Th key={index}>{header}</Th>
-                ))} */}
-                {objectToArray(excelContext[0]).map((row, index)=> (
-                    <Th key={index}>{row}</Th>
+                {objectToArray(excelContext[0]).map((row, index) => (
+                  <Th key={index}>{row}</Th>
                 ))}
               </Tr>
             </Thead>
             <Tbody>
-              {state.rowData?.map((row, index) => (
+              {excelContext.slice(1).map((row, index) => (
                 <Tr
                   _hover={{ background: hoverColor }}
                   cursor="pointer"
@@ -117,10 +108,10 @@ const ApplicationLists = ({ backButtonState }: Props) => {
             </Tbody>
           </Table>
         ) : (
-          <SingleAppDisplay singleApplication={state.choosenApp} />
+          <SingleAppDisplay singleApplication={state.choosenApplication} />
         )}
       </TableContainer>
-      {state.rowData?.length !== 0 && !state.choosenApp ? (
+      {state.rowData?.length !== 0 && !state.choosenApplication ? (
         <ApplicationListPages />
       ) : null}
     </Box>
