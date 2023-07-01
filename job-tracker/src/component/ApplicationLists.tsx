@@ -10,7 +10,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import ApplicationListPages from "./ApplicationListPages";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useMemo } from "react";
 import SingleAppDisplay from "./SingleAppDisplay";
 import { ExcelContext, ExcelShape } from "../App";
 
@@ -20,7 +20,7 @@ interface Props {
 
 interface State {
   allExcelData: ExcelShape[];
-  rowData: any[];
+  rowData: ExcelShape[];
   choosenApp: null | any;
 }
 
@@ -32,28 +32,28 @@ const ApplicationLists = ({ backButtonState }: Props) => {
   });
   const excelContext = useContext(ExcelContext)
 
-  const extractRowData = (array: any) => {
-    const returningArray = [];
-    for (var i = 1; i < array.length; i++) {
-      returningArray.push(array[i]);
-    }
-    return returningArray;
-  };
+  // const extractRowData = (array: ExcelShape[]) => {
+  //   const returningArray = [];
+  //   for (var i = 1; i < array.length; i++) {
+  //     returningArray.push(array[i]);
+  //   }
+  //   return returningArray;
+  // };
 
   useEffect(() => {
     setState((prevState) => ({ ...prevState, choosenApp: null }));
   }, [backButtonState]);
 
 
-  // const headerToArray = (): any[] => {
-  //   var header = [];
-  //   if (headers) {
-  //     for (const [ value] of Object.entries(headers)) {
-  //       header.push(value);
-  //     }
-  //   }
-  //   return header;
-  // };
+  const objectToArray = (headerArray: ExcelShape): string[] => {
+    var header = [];
+    if (headerArray !== undefined && headerArray !== null) {
+      for (const [ value] of Object.entries(headerArray)) {
+        header.push(value);
+    }
+  }
+    return header;
+  };
 
   const shortenVerbage = (text: string): string => {
     if (!text) return text;
@@ -82,6 +82,9 @@ const ApplicationLists = ({ backButtonState }: Props) => {
                 {/* {headerToArray().map((header, index) => (
                   <Th key={index}>{header}</Th>
                 ))} */}
+                {objectToArray(excelContext[0]).map((row, index)=> (
+                    <Th key={index}>{row}</Th>
+                ))}
               </Tr>
             </Thead>
             <Tbody>

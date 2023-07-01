@@ -14,8 +14,6 @@ import { BsChevronDown } from "react-icons/bs";
 import ApplicationLists from "./ApplicationLists";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { ExcelShape } from "../App";
-
 
 const MainDisplay = () => {
   const [clickBack, setClickBack] = useState(false);
