@@ -10,26 +10,27 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import ApplicationListPages from "./ApplicationListPages";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import SingleAppDisplay from "./SingleAppDisplay";
+import { ExcelContext, ExcelShape } from "../App";
 
 interface Props {
-  headers: (data: any) => void;
   backButtonState: boolean;
 }
 
 interface State {
-  allExcelData: any[];
+  allExcelData: ExcelShape[];
   rowData: any[];
   choosenApp: null | any;
 }
 
-const ApplicationLists = ({ headers, backButtonState }: Props) => {
+const ApplicationLists = ({ backButtonState }: Props) => {
   const [state, setState] = useState<State>({
     allExcelData: [],
     rowData: [],
     choosenApp: null,
   });
+  const excelContext = useContext(ExcelContext)
 
   const extractRowData = (array: any) => {
     const returningArray = [];
@@ -43,33 +44,16 @@ const ApplicationLists = ({ headers, backButtonState }: Props) => {
     setState((prevState) => ({ ...prevState, choosenApp: null }));
   }, [backButtonState]);
 
-  useEffect(() => {
-    if (headers === undefined) return;
-    var retrievedFromLocal = localStorage.getItem("excelDataInLocal");
 
-    if (retrievedFromLocal !== null) {
-      const jsonBackToObject = JSON.parse(retrievedFromLocal);
-      const headerData = extractRowData(jsonBackToObject);
-      setState((prevState) => ({
-        ...prevState,
-        allExcelData: jsonBackToObject,
-        rowData: headerData,
-      }));
-    }
-
-    //remove data in local storage because this data will persists past the program if not
-    localStorage.removeItem("excelDataInLocal");
-  }, [headers]);
-
-  const headerToArray = (): any[] => {
-    var header = [];
-    if (headers) {
-      for (const [ value] of Object.entries(headers)) {
-        header.push(value);
-      }
-    }
-    return header;
-  };
+  // const headerToArray = (): any[] => {
+  //   var header = [];
+  //   if (headers) {
+  //     for (const [ value] of Object.entries(headers)) {
+  //       header.push(value);
+  //     }
+  //   }
+  //   return header;
+  // };
 
   const shortenVerbage = (text: string): string => {
     if (!text) return text;
@@ -95,9 +79,9 @@ const ApplicationLists = ({ headers, backButtonState }: Props) => {
           <Table variant="simple">
             <Thead>
               <Tr>
-                {headerToArray().map((header, index) => (
+                {/* {headerToArray().map((header, index) => (
                   <Th key={index}>{header}</Th>
-                ))}
+                ))} */}
               </Tr>
             </Thead>
             <Tbody>

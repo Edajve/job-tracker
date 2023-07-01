@@ -13,25 +13,12 @@ import {
 import { BsChevronDown } from "react-icons/bs";
 import ApplicationLists from "./ApplicationLists";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { ExcelShape } from "../App";
 
-interface Props {
-  appToMain: any;
-}
 
-const MainDisplay = ({ appToMain }: Props) => {
-  const [excel, setExcel] = useState<null | undefined>(null);
+const MainDisplay = () => {
   const [clickBack, setClickBack] = useState(false);
-
-  useEffect(() => {
-    setExcel(appToMain);
-  }, [excel]);
-
-  const passHeader = () => {
-    if (appToMain) {
-      return appToMain[0];
-    }
-  };
 
   return (
     <Flex flexFlow="column" padding={5}>
@@ -58,7 +45,7 @@ const MainDisplay = ({ appToMain }: Props) => {
         </Menu>
       </Box>
       <Box height="97vh" border="2px solid gray" borderRadius="10px">
-        <ApplicationLists headers={passHeader()} backButtonState={clickBack} />
+        <ApplicationLists  backButtonState={clickBack} />
       </Box>
     </Flex>
   );

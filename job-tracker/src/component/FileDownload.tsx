@@ -4,28 +4,25 @@ interface Props {
 
 const FileDownload = ({ fromFileToNav }: Props) => {
 
-  const onSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onFileSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const myFile = event.target.files?.[0];
 
     if (!myFile && myFile !== undefined) return;
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
+    const fileReader = new FileReader();
+    fileReader.onload = function (e) {
       const data = e.target?.result;
-
-      if (data && data !== undefined) {
-        fromFileToNav(data);
-      }
+      if (data && data !== undefined) fromFileToNav(data)
     };
 
-    if (myFile) reader.readAsArrayBuffer(myFile);
+    if (myFile) fileReader.readAsArrayBuffer(myFile);
   };
 
   return (
     <>
       <label htmlFor="excel">Choose Excel Sheet:</label>
       <input
-        onChange={(event) => onSubmit(event)}
+        onChange={(event) => onFileSubmit(event)}
         type="file"
         id="excel"
         name="excel"

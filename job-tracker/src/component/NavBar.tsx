@@ -7,7 +7,7 @@ interface Props {
   fromNavToApp: (data: string | ArrayBuffer) => void;
 }
 
-const NavBar = ({ fromNavToApp }: Props) => {
+const NavBar = ({ fromNavToApp: excelBuffer }: Props) => {
 
   return (
     <>
@@ -16,7 +16,7 @@ const NavBar = ({ fromNavToApp }: Props) => {
         width="100vw"
         padding={4}
         marginY={5}>
-        <FileDownload fromFileToNav={(data) => fromNavToApp(data)} />
+        <FileDownload fromFileToNav={(excelArrayBuffer) => excelBuffer(excelArrayBuffer)} />
         <Spacer />
         <ColorModeSwitch />
       </HStack>
