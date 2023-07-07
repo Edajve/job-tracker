@@ -10,61 +10,39 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import ApplicationListPages from "./ApplicationListPages";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import SingleAppDisplay from "./SingleAppDisplay";
+import { ExcelContext, ExcelShape } from "../App";
 
 interface Props {
-  headers: (data: any) => void;
   backButtonState: boolean;
 }
 
 interface State {
-  allExcelData: any[];
-  rowData: any[];
-  choosenApp: null | any;
+  allExcelData: ExcelShape[];
+  rowData: ExcelShape[];
+  choosenApplication: null | any;
 }
 
-const ApplicationLists = ({ headers, backButtonState }: Props) => {
+const ApplicationLists = ({ backButtonState }: Props) => {
   const [state, setState] = useState<State>({
     allExcelData: [],
     rowData: [],
-    choosenApp: null,
+    choosenApplication: null,
   });
-
-  const extractRowData = (array: any) => {
-    const returningArray = [];
-    for (var i = 1; i < array.length; i++) {
-      returningArray.push(array[i]);
-    }
-    return returningArray;
-  };
+  const excelContext = useContext(ExcelContext);
 
   useEffect(() => {
-    setState((prevState) => ({ ...prevState, choosenApp: null }));
+    setState((prevState) => ({
+      ...prevState,
+      choosenApplication: null,
+    }));
   }, [backButtonState]);
 
-  useEffect(() => {
-    if (headers === undefined) return;
-    var retrievedFromLocal = localStorage.getItem("excelDataInLocal");
-
-    if (retrievedFromLocal !== null) {
-      const jsonBackToObject = JSON.parse(retrievedFromLocal);
-      const headerData = extractRowData(jsonBackToObject);
-      setState((prevState) => ({
-        ...prevState,
-        allExcelData: jsonBackToObject,
-        rowData: headerData,
-      }));
-    }
-
-    //remove data in local storage because this data will persists past the program if not
-    localStorage.removeItem("excelDataInLocal");
-  }, [headers]);
-
-  const headerToArray = (): any[] => {
+  const objectToArray = (headerArray: ExcelShape): string[] => {
     var header = [];
-    if (headers) {
-      for (const [ value] of Object.entries(headers)) {
+    if (headerArray !== undefined && headerArray !== null) {
+      for (const [value] of Object.entries(headerArray)) {
         header.push(value);
       }
     }
@@ -80,28 +58,26 @@ const ApplicationLists = ({ headers, backButtonState }: Props) => {
   const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
 
   const handleClick = (item: number): void => {
-    //you have to plus one for the onclick because the first application starts at 0
-    //but in excel data index 0 is the header
     setState((prevState) => ({
       ...prevState,
-      choosenApp: state.allExcelData?.[item + 1],
+      choosenApplication: excelContext[item + 1],
     }));
   };
 
   return (
     <Box height="300px">
       <TableContainer>
-        {!state.choosenApp ? (
+        {!state.choosenApplication ? (
           <Table variant="simple">
             <Thead>
               <Tr>
-                {headerToArray().map((header, index) => (
-                  <Th key={index}>{header}</Th>
+                {objectToArray(excelContext[0]).map((row, index) => (
+                  <Th key={index}>{row}</Th>
                 ))}
               </Tr>
             </Thead>
             <Tbody>
-              {state.rowData?.map((row, index) => (
+              {excelContext.slice(1).map((row, index) => (
                 <Tr
                   _hover={{ background: hoverColor }}
                   cursor="pointer"
@@ -130,10 +106,10 @@ const ApplicationLists = ({ headers, backButtonState }: Props) => {
             </Tbody>
           </Table>
         ) : (
-          <SingleAppDisplay singleApplication={state.choosenApp} />
+          <SingleAppDisplay singleApplication={state.choosenApplication} />
         )}
       </TableContainer>
-      {state.rowData?.length !== 0 && !state.choosenApp ? (
+      {state.rowData?.length !== 0 && !state.choosenApplication ? (
         <ApplicationListPages />
       ) : null}
     </Box>

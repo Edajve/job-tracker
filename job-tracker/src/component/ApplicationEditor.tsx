@@ -33,7 +33,6 @@ const ApplicationEditor = ({ handleGoingBack }: Props) => {
         Edit Section
       </Heading>
       <Input
-        placeholder="large size"
         size="lg"
         width={{ base: "20rem", md: "40rem", lg: "40rem" }}
         height="20rem"

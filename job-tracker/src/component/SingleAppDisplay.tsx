@@ -1,32 +1,14 @@
 import { Box, Button, SimpleGrid, Text, useColorMode } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ApplicationEditor from "./ApplicationEditor";
-
-interface Application {
-  Site: string;
-  Date: string;
-  Date_applied_to: string;
-  Company_name: string;
-  Position: string;
-  Fulltime_Contract: string;
-  Salary: string;
-  Company_Website: string;
-  Contact_info: string;
-  Call_back_date: string;
-  Tech_Stack: string;
-  Round_1: string;
-  Round_2: string;
-  Round_3: string;
-  Final: string;
-  Notes: string;
-}
+import { ExcelShape } from "../App";
 
 interface Props {
-  singleApplication(singleApp: Application): Application;
+  singleApplication(singleApp: ExcelShape): ExcelShape;
 }
 
 const SingleAppDisplay = ({ singleApplication }: Props) => {
-  const [application, setApplication] = useState<null | any>(null);
+  const [application, setApplication] = useState<ExcelShape>({} as ExcelShape);
   const [editButton, setEditButton] = useState(false);
 
   useEffect(() => {

@@ -2,22 +2,12 @@ import { HStack, Spacer } from "@chakra-ui/layout";
 import ColorModeSwitch from "./ColorModeSwitch";
 import FileDownload from "./FileDownload";
 import { Divider } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 
 interface Props {
-  fromNavToApp: (data: any) => void;
+  fromNavToApp: (data: string | ArrayBuffer) => void;
 }
 
-const NavBar = ({ fromNavToApp }: Props) => {
-  const [excelData, setExcelData] = useState<null | unknown>(null);
-
-  useEffect(() => {
-    fromNavToApp(excelData);
-  }, [excelData]);
-
-  const recieveState = (data: any) => {
-    setExcelData(data);
-  };
+const NavBar = ({ fromNavToApp: excelBuffer }: Props) => {
 
   return (
     <>
@@ -26,7 +16,7 @@ const NavBar = ({ fromNavToApp }: Props) => {
         width="100vw"
         padding={4}
         marginY={5}>
-        <FileDownload fromFileToNav={(data) => recieveState(data)} />
+        <FileDownload fromFileToNav={(excelArrayBuffer) => excelBuffer(excelArrayBuffer)} />
         <Spacer />
         <ColorModeSwitch />
       </HStack>
