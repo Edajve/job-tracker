@@ -27,16 +27,15 @@ const MainDisplay = () => {
               <ArrowLeftIcon />
             </Button>
             <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-              Order By: Relevance
+             Ascend By:
             </MenuButton>
             <Stack spacing={3}>
-              <Input variant="flushed" placeholder="Search" />
+              <Input width='25rem' variant="flushed" placeholder="Search for Company Name" />
             </Stack>
           </HStack>
           <MenuList>
             <MenuItem>Date</MenuItem>
             <MenuItem>Salary</MenuItem>
-            <MenuItem>Contract-to-Hire</MenuItem>
             <MenuItem>Full-Time</MenuItem>
             <MenuItem>Contract</MenuItem>
           </MenuList>

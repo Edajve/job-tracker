@@ -10,7 +10,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import ApplicationListPages from "./ApplicationListPages";
-import { useEffect, useState, useContext, useMemo } from "react";
+import { useEffect, useState, useContext } from "react";
 import SingleAppDisplay from "./SingleAppDisplay";
 import { ExcelContext, ExcelShape } from "../App";
 
@@ -58,8 +58,6 @@ const ApplicationLists = ({ backButtonState }: Props) => {
   const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
 
   const handleClick = (item: number): void => {
-    //you have to plus one for the onclick because the first application starts at 0
-    //but in excel data index 0 is the header
     setState((prevState) => ({
       ...prevState,
       choosenApplication: excelContext[item + 1],

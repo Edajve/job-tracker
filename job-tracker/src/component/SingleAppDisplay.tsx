@@ -8,7 +8,7 @@ interface Props {
 }
 
 const SingleAppDisplay = ({ singleApplication }: Props) => {
-  const [application, setApplication] = useState<null | any>(null);
+  const [application, setApplication] = useState<ExcelShape>({} as ExcelShape);
   const [editButton, setEditButton] = useState(false);
 
   useEffect(() => {
