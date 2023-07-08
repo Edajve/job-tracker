@@ -12,8 +12,6 @@ import { useEffect, useState } from "react";
 import { updateColumnQuery } from "./SingleAppDisplay";
 import apiClient from "../services/http-client";
 
-const editButtonStyles = {};
-
 const saveChangesButtonStyles = {
   transition: "background-color 0.3s",
   ":hover": {
@@ -33,20 +31,21 @@ const ApplicationEditor = ({
   apiQuery,
   setApiQuery,
 }: Props) => {
+  const [editInputBox, setEditInputBox] = useState("");
+
   const [isLoadingState, setIsLoadingState] = useState(false);
-  let [value, setValue] = useState("");
   const [apiSuccess, setSuccess] = useState(false);
   const [apiFailed, setFailed] = useState(false);
 
   let handleInputChange = (e: any) => {
     let inputValue = e.target.value;
-    setValue(inputValue);
+    setEditInputBox(inputValue);
   };
 
   const saveChanges = () => {
     setApiQuery((prevQuery) => ({
       ...prevQuery,
-      applicationNewEntry: value,
+      applicationNewEntry: editInputBox,
     }));
     setIsLoadingState(true);
   };
@@ -60,18 +59,16 @@ const ApplicationEditor = ({
         `/api/v1/applications/${apiQuery.applicationColumn}/${apiQuery.applicationID}`,
         { updatedColumn: apiQuery.applicationNewEntry }
       )
-      .then((res) => {
+      .then(() => {
         setIsLoadingState(false);
         setSuccess(true);
-
         setTimeout(() => {
           setSuccess(false);
         }, 2000);
       })
-      .catch((error) => {
+      .catch(() => {
         setIsLoadingState(false);
         setFailed(true);
-
         setTimeout(() => {
           setFailed(false);
         }, 2000);
@@ -85,7 +82,7 @@ const ApplicationEditor = ({
       </Heading>
       <Textarea
         borderRadius={10}
-        value={value}
+        value={editInputBox}
         size="lg"
         width={{ base: "20rem", md: "40rem", lg: "70%" }}
         height="20rem"
@@ -95,7 +92,6 @@ const ApplicationEditor = ({
       <Box paddingLeft={3} paddingTop={9}>
         <Button
           onClick={() => handleGoingBack(false)}
-          sx={editButtonStyles}
           colorScheme="gray"
           variant="outline">
           Back

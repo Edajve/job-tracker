@@ -11,9 +11,10 @@ import {
 import { useEffect, useState } from "react";
 import ApplicationEditor from "./ApplicationEditor";
 import { ExcelShape } from "../App";
+import apiClient from "../services/http-client";
 
 interface Props {
-  singleApplication: ExcelShape;
+  idOfChoosenApp: string;
 }
 
 export interface updateColumnQuery {
@@ -22,7 +23,7 @@ export interface updateColumnQuery {
   applicationNewEntry: string;
 }
 
-const SingleAppDisplay = ({ singleApplication }: Props) => {
+const SingleAppDisplay = ({ idOfChoosenApp }: Props) => {
   const [application, setApplication] = useState<ExcelShape>({} as ExcelShape);
   const [editButton, setEditButton] = useState(false);
   const [apiQuery, setApiQuery] = useState<updateColumnQuery>(
@@ -30,8 +31,19 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
   );
 
   useEffect(() => {
-    setApplication(singleApplication);
-    setApiQuery((state) => ({ ...state, applicationID: singleApplication.id }));
+    let aSingleApplication: ExcelShape;
+    apiClient
+      .get(`/api/v1/applications/${idOfChoosenApp}`)
+      .then((res) => {
+        aSingleApplication = res.data.data[0];
+        setApplication(aSingleApplication);
+      })
+      .catch((error) => new Error(error));
+
+    setApiQuery((prevState) => ({
+      ...prevState,
+      applicationID: application.id,
+    }));
   }, [application]);
 
   const { colorMode } = useColorMode();
@@ -45,16 +57,15 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
     },
   };
 
-  const detailClicked = (clickedOnColumn: string) => {
-    setApiQuery((state) => ({ ...state, applicationColumn: clickedOnColumn }));
+  const clickedOnIndividualDetail = (clickedOnColumn: string) => {
+    setApiQuery((state) => ({
+      ...state,
+      applicationColumn: clickedOnColumn,
+    }));
     setEditButton(true);
   };
 
-  if (singleApplication === null || singleApplication === undefined) return;
-
-  useEffect(() => {
-    console.log(apiQuery);
-  }, [apiQuery]);
+  if (application === null || application === undefined) return;
 
   return (
     <>
@@ -63,7 +74,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
           <CardBody>
             <Stack divider={<StackDivider />} spacing="4">
               {Object.entries(application).map(([key, value]) => (
-                <Box sx={boxStyles} onClick={() => detailClicked(key)}>
+                <Box sx={boxStyles} onClick={() => clickedOnIndividualDetail(key)}>
                   <Heading size="xs" textTransform="uppercase">
                     {key}
                   </Heading>
@@ -77,8 +88,8 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
         </Card>
       ) : (
         <ApplicationEditor
-        apiQuery={apiQuery}
-        setApiQuery={setApiQuery}
+          apiQuery={apiQuery}
+          setApiQuery={setApiQuery}
           handleGoingBack={() => setEditButton(!editButton)}
         />
       )}

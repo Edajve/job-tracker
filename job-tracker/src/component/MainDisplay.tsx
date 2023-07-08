@@ -27,6 +27,7 @@ const MainDisplay = ({ setFilterButton }: Props) => {
   return (
     <Flex flexFlow="column" padding={5}>
       <Box height="120px">
+        {/* Dropdown */}
         <Menu>
           <HStack marginTop="2rem">
             <Button onClick={() => setClickBack(!clickBack)}>
@@ -63,6 +64,7 @@ const MainDisplay = ({ setFilterButton }: Props) => {
         </Menu>
       </Box>
       <Box height="97vh" border="2px solid gray" borderRadius="10px">
+        {/* Applications UI */}
         <ApplicationLists  backButtonState={clickBack} />
       </Box>
     </Flex>

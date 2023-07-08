@@ -12,49 +12,34 @@ import {
 import ApplicationListPages from "./ApplicationListPages";
 import { useEffect, useState, useContext } from "react";
 import SingleAppDisplay from "./SingleAppDisplay";
-import { ExcelContext, ExcelShape } from "../App";
+import { ExcelContext } from "../App";
 import helpers from "../helpers/helpers";
 
 interface Props {
   backButtonState: boolean;
 }
 
-interface State {
-  allExcelData: ExcelShape[];
-  rowData: ExcelShape[];
-  choosenApplication: null | ExcelShape;
-}
-
 const ApplicationLists = ({ backButtonState }: Props) => {
   const { colorMode } = useColorMode();
   const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
-  const [state, setState] = useState<State>({
-    allExcelData: [],
-    rowData: [],
-    choosenApplication: null,
-  });
+  const [indexOfApplication, setIndexOfApplication] = useState<null | string>(null);
 
   const excelContext = useContext(ExcelContext);
 
   useEffect(() => {
-    setState((prevState) => ({
-      ...prevState,
-      choosenApplication: null,
-    }));
+    setIndexOfApplication(null);
   }, [backButtonState]);
 
-  const handleClick = (item: number): void => {
-    setState((prevState) => ({
-      ...prevState,
-      choosenApplication: excelContext[item],
-    }));
+  const handleClick = (idOfSingleApplication: string): void => {
+    setIndexOfApplication(idOfSingleApplication);
   };
 
   return (
     <Box height="300px">
       <TableContainer>
-        {!state.choosenApplication ? (
+        {!indexOfApplication ? (
           <Table variant="simple">
+            {/* Table Header */}
             <Thead>
               <Tr>
                 {helpers
@@ -64,13 +49,14 @@ const ApplicationLists = ({ backButtonState }: Props) => {
                   ))}
               </Tr>
             </Thead>
+            {/* Table Body */}
             <Tbody>
               {excelContext.map((row, index) => (
                 <Tr
                   _hover={{ background: hoverColor }}
                   cursor="pointer"
                   key={index}
-                  onClick={() => handleClick(index)}>
+                  onClick={() => handleClick(row.id)}>
                   <Td>{row.id}</Td>
                   <Td>{row.site}</Td>
                   <Td>{helpers.shortenVerbage(row.date, 10, false)}</Td>
@@ -97,10 +83,11 @@ const ApplicationLists = ({ backButtonState }: Props) => {
             </Tbody>
           </Table>
         ) : (
-          <SingleAppDisplay singleApplication={state.choosenApplication} />
+          <SingleAppDisplay idOfChoosenApp={indexOfApplication} />
         )}
       </TableContainer>
-      {state.rowData?.length !== 0 && !state.choosenApplication ? (
+      {!indexOfApplication ? (
+        // The left and right pages used for pagination
         <ApplicationListPages />
       ) : null}
     </Box>
