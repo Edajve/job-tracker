@@ -13,7 +13,7 @@ import ApplicationListPages from "./ApplicationListPages";
 import { useEffect, useState, useContext } from "react";
 import SingleAppDisplay from "./SingleAppDisplay";
 import { ExcelContext, ExcelShape } from "../App";
-import shortenVerbage from "../helpers/helpers"
+import helpers from "../helpers/helpers"
 
 interface Props {
   backButtonState: boolean;
@@ -41,15 +41,15 @@ const ApplicationLists = ({ backButtonState }: Props) => {
     }));
   }, [backButtonState]);
 
-  const objectToArray = (headerArray: ExcelShape): string[] => {
-    var header = [];
-    if (headerArray !== undefined && headerArray !== null) {
-      for (const [value] of Object.entries(headerArray)) {
-        header.push(value);
-      }
-    }
-    return header;
-  };
+  // const objectToArray = (headerArray: ExcelShape): string[] => {
+  //   var header = [];
+  //   if (headerArray !== undefined && headerArray !== null) {
+  //     for (const [value] of Object.entries(headerArray)) {
+  //       header.push(value);
+  //     }
+  //   }
+  //   return header;
+  // };
 
   const { colorMode } = useColorMode();
   const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
@@ -69,7 +69,7 @@ const ApplicationLists = ({ backButtonState }: Props) => {
             <Thead>
               <Tr>
                 {
-                objectToArray(excelContext[0]).map((row, index) =>(
+                helpers.objectToArray(excelContext[0]).map((row, index) =>(
 
                   <Th key={index}>{row}</Th>
                 ))}
@@ -84,8 +84,8 @@ const ApplicationLists = ({ backButtonState }: Props) => {
                   onClick={() => handleClick(index)}>
                   <Td>{row.id}</Td>
                   <Td>{row.site}</Td>
-                  <Td>{shortenVerbage(row.date, 10, false)}</Td>
-                  <Td>{shortenVerbage(row.date_applied_to, 10, false)}</Td>
+                  <Td>{helpers.shortenVerbage(row.date, 10, false)}</Td>
+                  <Td>{helpers.shortenVerbage(row.date_applied_to, 10, false)}</Td>
                   <Td>{row.company_name}</Td>
                   <Td>{row.position}</Td>
                   <Td>{row.fulltime_Contract}</Td>
@@ -95,12 +95,12 @@ const ApplicationLists = ({ backButtonState }: Props) => {
                   </Td>
                   <Td>{row.contact_info}</Td>
                   <Td>{row.call_back_date}</Td>
-                  <Td>{shortenVerbage(row.tech_Stack, 70)}</Td>
-                  <Td>{shortenVerbage(row.round_1, 70)}</Td>
-                  <Td>{shortenVerbage(row.round_2, 70)}</Td>
-                  <Td>{shortenVerbage(row.round_3, 70)}</Td>
-                  <Td>{shortenVerbage(row.final, 70)}</Td>
-                  <Td>{shortenVerbage(row.notes, 70)}</Td>
+                  <Td>{helpers.shortenVerbage(row.tech_Stack, 70)}</Td>
+                  <Td>{helpers.shortenVerbage(row.round_1, 70)}</Td>
+                  <Td>{helpers.shortenVerbage(row.round_2, 70)}</Td>
+                  <Td>{helpers.shortenVerbage(row.round_3, 70)}</Td>
+                  <Td>{helpers.shortenVerbage(row.final, 70)}</Td>
+                  <Td>{helpers.shortenVerbage(row.notes, 70)}</Td>
                 </Tr>
               ))}
             </Tbody>
