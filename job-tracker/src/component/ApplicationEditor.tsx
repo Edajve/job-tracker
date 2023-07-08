@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { updateColumnQuery } from "./SingleAppDisplay";
-import apiClient from "../services/http-client"
+import apiClient from "../services/http-client";
 
 const editButtonStyles = {};
 
@@ -35,6 +35,8 @@ const ApplicationEditor = ({
 }: Props) => {
   const [isLoadingState, setIsLoadingState] = useState(false);
   let [value, setValue] = useState("");
+  const [apiSuccess, setSuccess] = useState(false);
+  const [apiFailed, setFailed] = useState(false);
 
   let handleInputChange = (e: any) => {
     let inputValue = e.target.value;
@@ -42,8 +44,8 @@ const ApplicationEditor = ({
   };
 
   const saveChanges = () => {
-    setApiQuery((state) => ({
-      ...state,
+    setApiQuery((prevQuery) => ({
+      ...prevQuery,
       applicationNewEntry: value,
     }));
     setIsLoadingState(true);
@@ -54,13 +56,30 @@ const ApplicationEditor = ({
       apiQuery.applicationNewEntry !== "" &&
       apiQuery.applicationNewEntry !== undefined
     ) {
-      apiClient.put(`/api/v1/applications/${apiQuery.applicationColumn}/${apiQuery.applicationID}`,
-       {updatedColumn: apiQuery.applicationNewEntry})
-      .then(res => console.log(res))
-      .catch(error => console.log(error))
-      setTimeout(() => {
-        setIsLoadingState(false);
-      }, 2000);
+      apiClient
+        .put(
+          `/api/v1/applications/${apiQuery.applicationColumn}/${apiQuery.applicationID}`,
+          { updatedColumn: apiQuery.applicationNewEntry }
+        )
+        .then((res) => {
+          if (res) {
+            setIsLoadingState(false);
+            setSuccess(true);
+            setTimeout(() => {
+              setSuccess(false);
+            }, 2000);
+          }
+        })
+        .catch((error) => {
+          if (error) {
+            setIsLoadingState(false);
+            setFailed(true);
+            setTimeout(() => {
+              setFailed(false);
+            }, 2000);
+          }
+          new Error(error);
+        });
     }
   }, [apiQuery.applicationNewEntry]);
 
@@ -86,7 +105,6 @@ const ApplicationEditor = ({
           variant="outline">
           Back
         </Button>
-
         <Button
           marginLeft={5}
           onClick={saveChanges}
@@ -96,15 +114,20 @@ const ApplicationEditor = ({
           Save Changes
         </Button>
       </Box>
-      {isLoadingState && (
+      {isLoadingState && "Loading"}
+      {apiFailed && (
+        <List paddingTop={4} paddingLeft={2}>
+          <ListItem>
+            <ListIcon as={WarningIcon} color="red.400" />
+            Changes Not Saved
+          </ListItem>
+        </List>
+      )}
+      {apiSuccess && (
         <List paddingTop={4} paddingLeft={2}>
           <ListItem>
             <ListIcon as={CheckCircleIcon} color="teal.400" />
             Changes Saved
-          </ListItem>
-          <ListItem>
-            <ListIcon as={WarningIcon} color="red.400" />
-            Changes Not Saved
           </ListItem>
         </List>
       )}
