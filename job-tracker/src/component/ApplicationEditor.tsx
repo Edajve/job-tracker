@@ -6,9 +6,11 @@ import {
   List,
   ListIcon,
   ListItem,
-  Textarea
+  Textarea,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { updateColumnQuery } from "./SingleAppDisplay";
+import apiClient from "../services/http-client"
 
 const editButtonStyles = {};
 
@@ -22,22 +24,51 @@ const saveChangesButtonStyles = {
 
 interface Props {
   handleGoingBack(bool: boolean): void;
+  apiQuery: updateColumnQuery;
+  setApiQuery: React.Dispatch<React.SetStateAction<updateColumnQuery>>;
 }
 
-const ApplicationEditor = ({ handleGoingBack }: Props) => {
+const ApplicationEditor = ({
+  handleGoingBack,
+  apiQuery,
+  setApiQuery,
+}: Props) => {
   const [isLoadingState, setIsLoadingState] = useState(false);
-  let [value, setValue] = useState('')
+  let [value, setValue] = useState("");
 
   let handleInputChange = (e: any) => {
-    let inputValue = e.target.value
-    setValue(inputValue)
-  }
+    let inputValue = e.target.value;
+    setValue(inputValue);
+  };
+
+  const saveChanges = () => {
+    setApiQuery((state) => ({
+      ...state,
+      applicationNewEntry: value,
+    }));
+    setIsLoadingState(true);
+  };
+
+  useEffect(() => {
+    if (
+      apiQuery.applicationNewEntry !== "" &&
+      apiQuery.applicationNewEntry !== undefined
+    ) {
+      apiClient.put(`/api/v1/applications/${apiQuery.applicationColumn}/${apiQuery.applicationID}`,
+       {updatedColumn: apiQuery.applicationNewEntry})
+      .then(res => console.log(res))
+      .catch(error => console.log(error))
+      setTimeout(() => {
+        setIsLoadingState(false);
+      }, 2000);
+    }
+  }, [apiQuery.applicationNewEntry]);
 
   return (
     <Box padding={10}>
       <Heading as="h1" paddingLeft={3} paddingBottom={10}>
         Edit Section
-      </Heading>  
+      </Heading>
       <Textarea
         borderRadius={10}
         value={value}
@@ -45,8 +76,7 @@ const ApplicationEditor = ({ handleGoingBack }: Props) => {
         width={{ base: "20rem", md: "40rem", lg: "70%" }}
         height="20rem"
         onChange={handleInputChange}
-        placeholder='Edit Section'
-
+        placeholder="Edit Section"
       />
       <Box paddingLeft={3} paddingTop={9}>
         <Button
@@ -59,7 +89,7 @@ const ApplicationEditor = ({ handleGoingBack }: Props) => {
 
         <Button
           marginLeft={5}
-          onClick={() => setIsLoadingState(true)}
+          onClick={saveChanges}
           sx={saveChangesButtonStyles}
           colorScheme="gray"
           variant="outline">

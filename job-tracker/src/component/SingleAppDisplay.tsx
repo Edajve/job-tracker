@@ -1,11 +1,8 @@
 import {
   Box,
-  Button,
   Card,
   CardBody,
-  CardHeader,
   Heading,
-  SimpleGrid,
   Stack,
   StackDivider,
   Text,
@@ -14,20 +11,27 @@ import {
 import { useEffect, useState } from "react";
 import ApplicationEditor from "./ApplicationEditor";
 import { ExcelShape } from "../App";
-import helpers from "../helpers/helpers";
 
 interface Props {
   singleApplication: ExcelShape;
 }
 
+export interface updateColumnQuery {
+  applicationID: string;
+  applicationColumn: string;
+  applicationNewEntry: string;
+}
+
 const SingleAppDisplay = ({ singleApplication }: Props) => {
   const [application, setApplication] = useState<ExcelShape>({} as ExcelShape);
-  const [applicationID, setApplicationID] = useState<string | null>();
   const [editButton, setEditButton] = useState(false);
+  const [apiQuery, setApiQuery] = useState<updateColumnQuery>(
+    {} as updateColumnQuery
+  );
 
   useEffect(() => {
     setApplication(singleApplication);
-    setApplicationID(singleApplication.id);
+    setApiQuery((state) => ({ ...state, applicationID: singleApplication.id }));
   }, [application]);
 
   const { colorMode } = useColorMode();
@@ -41,13 +45,16 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
     },
   };
 
-  const detailClicked = (
-    item: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const detailClicked = (clickedOnColumn: string) => {
+    setApiQuery((state) => ({ ...state, applicationColumn: clickedOnColumn }));
     setEditButton(true);
   };
 
   if (singleApplication === null || singleApplication === undefined) return;
+
+  useEffect(() => {
+    console.log(apiQuery);
+  }, [apiQuery]);
 
   return (
     <>
@@ -56,7 +63,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
           <CardBody>
             <Stack divider={<StackDivider />} spacing="4">
               {Object.entries(application).map(([key, value]) => (
-                <Box sx={boxStyles} onClick={(item) => detailClicked(item)}>
+                <Box sx={boxStyles} onClick={() => detailClicked(key)}>
                   <Heading size="xs" textTransform="uppercase">
                     {key}
                   </Heading>
@@ -69,7 +76,11 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
           </CardBody>
         </Card>
       ) : (
-        <ApplicationEditor handleGoingBack={() => setEditButton(!editButton)} />
+        <ApplicationEditor
+        apiQuery={apiQuery}
+        setApiQuery={setApiQuery}
+          handleGoingBack={() => setEditButton(!editButton)}
+        />
       )}
     </>
   );
