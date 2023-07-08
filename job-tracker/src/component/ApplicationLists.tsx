@@ -22,10 +22,12 @@ interface Props {
 interface State {
   allExcelData: ExcelShape[];
   rowData: ExcelShape[];
-  choosenApplication: null | any;
+  choosenApplication: null | ExcelShape;
 }
 
 const ApplicationLists = ({ backButtonState }: Props) => {
+  const { colorMode } = useColorMode();
+  const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
   const [state, setState] = useState<State>({
     allExcelData: [],
     rowData: [],
@@ -40,19 +42,6 @@ const ApplicationLists = ({ backButtonState }: Props) => {
       choosenApplication: null,
     }));
   }, [backButtonState]);
-
-  // const objectToArray = (headerArray: ExcelShape): string[] => {
-  //   var header = [];
-  //   if (headerArray !== undefined && headerArray !== null) {
-  //     for (const [value] of Object.entries(headerArray)) {
-  //       header.push(value);
-  //     }
-  //   }
-  //   return header;
-  // };
-
-  const { colorMode } = useColorMode();
-  const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
 
   const handleClick = (item: number): void => {
     setState((prevState) => ({
@@ -91,11 +80,11 @@ const ApplicationLists = ({ backButtonState }: Props) => {
                   <Td>{row.fulltime_Contract}</Td>
                   <Td>{row.salary}</Td>
                   <Td>
-                    <a href={row.company_Website}>{row.company_Website}</a>
+                    <a href={row.company_website}>{row.company_website}</a>
                   </Td>
                   <Td>{row.contact_info}</Td>
                   <Td>{row.call_back_date}</Td>
-                  <Td>{helpers.shortenVerbage(row.tech_Stack, 70)}</Td>
+                  <Td>{helpers.shortenVerbage(row.tech_stack, 70)}</Td>
                   <Td>{helpers.shortenVerbage(row.round_1, 70)}</Td>
                   <Td>{helpers.shortenVerbage(row.round_2, 70)}</Td>
                   <Td>{helpers.shortenVerbage(row.round_3, 70)}</Td>

@@ -6,14 +6,13 @@ const shortenVerbage = (text: string, lengthOfText: number, showEllipsis: boolea
     return stringg;
   };
 
-  const TableColumn =
-["id",
-"Site",
-"Date Applied To",
-"Company Name",
+  const singleApplicationDetials =
+[
 "Position",
-"Full Time/Contract",
 "Salary",
+"Date",
+"Date Applied To",
+"Full Time/Contract",
 "Company Website",
 "Contact Info",
 "Call Back Date",
@@ -22,9 +21,10 @@ const shortenVerbage = (text: string, lengthOfText: number, showEllipsis: boolea
 "Round 2",
 "Round 3",
 "Final",
-"Notes"];
+"Notes"
+];
 
-const objectToArray = (theObject: Object | ExcelShape): string[] | undefined[] => {
+const objectToArray = (theObject: Object | ExcelShape): string[] => {
   if (!theObject) return [];
   const array = [];
   for (const [value] of Object.entries(theObject)) {
@@ -33,4 +33,4 @@ const objectToArray = (theObject: Object | ExcelShape): string[] | undefined[] =
   return array;
 }
 
-export default { shortenVerbage , objectToArray, TableColumn }
+export default { shortenVerbage , objectToArray, singleApplicationDetials }

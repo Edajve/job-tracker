@@ -8,7 +8,7 @@ import ListActions from "./component/ListActions";
 import apiClient from "./services/http-client"
 
 export interface ExcelShape {
-  id:string
+  id: string;
   site: string;
   date: string;
   date_applied_to: string;
@@ -16,10 +16,10 @@ export interface ExcelShape {
   position: string;
   fulltime_Contract: string;
   salary: string;
-  company_Website: string;
+  company_website: string;
   contact_info: string;
   call_back_date: string;
-  tech_Stack: string;
+  tech_stack: string;
   round_1: string;
   round_2: string;
   round_3: string;
@@ -66,7 +66,7 @@ function App() {
           <ListActions />
         </GridItem>
       </Show>
-      <GridItem overflow="hidden" area="main" height="140vh" marginTop="-4px">
+      <GridItem overflow="hidden" area="main" height="500vh" marginTop="-4px">
         <Divider borderColor="gray.200" />
         <MainDisplay setFilterButton={setFilterClick} />
       </GridItem>
