@@ -50,14 +50,6 @@ const ApplicationEditor = ({ handleGoingBack }: Props) => {
         placeholder='Edit Section'
 
       />
-      {/* <Input
-        color="grey"
-        size="lg"
-        width={{ base: "20rem", md: "40rem", lg: "40rem" }}
-        height="20rem"
-        display="block"
-        margin={3}
-      /> */}
       <Box paddingLeft={3} paddingTop={9}>
         <Button
           onClick={() => handleGoingBack(false)}
