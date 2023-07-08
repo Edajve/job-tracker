@@ -50,9 +50,10 @@ const ApplicationLists = ({ backButtonState }: Props) => {
     return header;
   };
 
-  const shortenVerbage = (text: string): string => {
+  const shortenVerbage = (text: string, lengthOfText: number, showEllipsis: boolean = true): string => {
     if (!text) return text;
-    return text.substring(0, 70) + "...";
+    const stringg =  showEllipsis === true ? text.substring(0, lengthOfText) + "..." : text.substring(0, lengthOfText) 
+    return stringg;
   };
 
   const { colorMode } = useColorMode();
@@ -88,8 +89,8 @@ const ApplicationLists = ({ backButtonState }: Props) => {
                   onClick={() => handleClick(index)}>
                   <Td>{row.id}</Td>
                   <Td>{row.site}</Td>
-                  <Td>{row.date}</Td>
-                  <Td>{row.date_applied_to}</Td>
+                  <Td>{shortenVerbage(row.date, 10, false)}</Td>
+                  <Td>{shortenVerbage(row.date_applied_to, 10, false)}</Td>
                   <Td>{row.company_name}</Td>
                   <Td>{row.position}</Td>
                   <Td>{row.fulltime_Contract}</Td>
@@ -99,12 +100,12 @@ const ApplicationLists = ({ backButtonState }: Props) => {
                   </Td>
                   <Td>{row.contact_info}</Td>
                   <Td>{row.call_back_date}</Td>
-                  <Td>{shortenVerbage(row.tech_Stack)}</Td>
-                  <Td>{shortenVerbage(row.round_1)}</Td>
-                  <Td>{shortenVerbage(row.round_2)}</Td>
-                  <Td>{shortenVerbage(row.round_3)}</Td>
-                  <Td>{shortenVerbage(row.final)}</Td>
-                  <Td>{shortenVerbage(row.notes)}</Td>
+                  <Td>{shortenVerbage(row.tech_Stack, 70)}</Td>
+                  <Td>{shortenVerbage(row.round_1, 70)}</Td>
+                  <Td>{shortenVerbage(row.round_2, 70)}</Td>
+                  <Td>{shortenVerbage(row.round_3, 70)}</Td>
+                  <Td>{shortenVerbage(row.final, 70)}</Td>
+                  <Td>{shortenVerbage(row.notes, 70)}</Td>
                 </Tr>
               ))}
             </Tbody>
