@@ -2,6 +2,7 @@ import { Box, Button, SimpleGrid, Text, useColorMode } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ApplicationEditor from "./ApplicationEditor";
 import { ExcelShape } from "../App";
+import shortenVerbage from "../helpers/helpers";
 
 interface Props {
   singleApplication(singleApp: ExcelShape): ExcelShape;
@@ -71,7 +72,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Date:
             </Text>
-            <Text sx={descriptionStyles}>{application?.date}</Text>
+            <Text sx={descriptionStyles}>{shortenVerbage(application?.date, 10, false)}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -84,7 +85,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Date Applied To:
             </Text>
-            <Text sx={descriptionStyles}>{application?.date_applied_to}</Text>
+            <Text sx={descriptionStyles}>{shortenVerbage(application?.date_applied_to, 10, false)}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
