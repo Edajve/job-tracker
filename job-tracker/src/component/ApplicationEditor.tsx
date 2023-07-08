@@ -7,6 +7,8 @@ import {
   List,
   ListIcon,
   ListItem,
+  Text,
+  Textarea
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -26,18 +28,27 @@ interface Props {
 
 const ApplicationEditor = ({ handleGoingBack }: Props) => {
   const [isLoadingState, setIsLoadingState] = useState(false);
+  let [value, setValue] = useState('')
+
+  let handleInputChange = (e: any) => {
+    let inputValue = e.target.value
+    setValue(inputValue)
+  }
 
   return (
     <Box padding={10}>
       <Heading as="h1" paddingLeft={3} paddingBottom={10}>
         Edit Section
-      </Heading>
-      <Input
+      </Heading>  
+      <Textarea
+        borderRadius={10}
+        value={value}
         size="lg"
-        width={{ base: "20rem", md: "40rem", lg: "40rem" }}
+        width={{ base: "20rem", md: "40rem", lg: "70%" }}
         height="20rem"
-        display="block"
-        margin={3}
+        onChange={handleInputChange}
+        placeholder='Edit Section'
+
       />
       <Box paddingLeft={3} paddingTop={9}>
         <Button

@@ -58,7 +58,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Site:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Site}</Text>
+            <Text sx={descriptionStyles}>{application?.site}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -71,7 +71,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Date:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Date}</Text>
+            <Text sx={descriptionStyles}>{application?.date}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -84,7 +84,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Date Applied To:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Date_applied_to}</Text>
+            <Text sx={descriptionStyles}>{application?.date_applied_to}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -97,7 +97,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Company Name:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Company_name}</Text>
+            <Text sx={descriptionStyles}>{application?.company_name}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -110,7 +110,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Position:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Position}</Text>
+            <Text sx={descriptionStyles}>{application?.position}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -123,7 +123,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Fulltime/Contract:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Fulltime_Contract}</Text>
+            <Text sx={descriptionStyles}>{application?.fulltime_Contract}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -136,7 +136,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Salary:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Salary}</Text>
+            <Text sx={descriptionStyles}>{application?.salary}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -149,7 +149,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Company Website:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Company_Website}</Text>
+            <Text sx={descriptionStyles}>{application?.company_Website}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -162,7 +162,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Contact information:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Contact_info}</Text>
+            <Text sx={descriptionStyles}>{application?.contact_info}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -175,7 +175,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Call Back Date:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Call_back_date}</Text>
+            <Text sx={descriptionStyles}>{application?.call_back_date}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -188,7 +188,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Tech Stack:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Tech_Stack}</Text>
+            <Text sx={descriptionStyles}>{application?.tech_Stack}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -201,7 +201,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Round 1:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Round_1}</Text>
+            <Text sx={descriptionStyles}>{application?.round_1}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -214,7 +214,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Round 2:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Round_2}</Text>
+            <Text sx={descriptionStyles}>{application?.round_2}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -227,7 +227,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Round 3:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Round_3}</Text>
+            <Text sx={descriptionStyles}>{application?.round_3}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -240,7 +240,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Final:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Final}</Text>
+            <Text sx={descriptionStyles}>{application?.final}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -253,7 +253,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Notes:
             </Text>
-            <Text sx={descriptionStyles}>{application?.Notes}</Text>
+            <Text sx={descriptionStyles}>{application?.notes}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}

@@ -30,6 +30,7 @@ const ApplicationLists = ({ backButtonState }: Props) => {
     rowData: [],
     choosenApplication: null,
   });
+
   const excelContext = useContext(ExcelContext);
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const ApplicationLists = ({ backButtonState }: Props) => {
   const handleClick = (item: number): void => {
     setState((prevState) => ({
       ...prevState,
-      choosenApplication: excelContext[item + 1],
+      choosenApplication: excelContext[item],
     }));
   };
 
@@ -71,36 +72,39 @@ const ApplicationLists = ({ backButtonState }: Props) => {
           <Table variant="simple">
             <Thead>
               <Tr>
-                {objectToArray(excelContext[0]).map((row, index) => (
+                {
+                objectToArray(excelContext[0]).map((row, index) =>(
+
                   <Th key={index}>{row}</Th>
                 ))}
               </Tr>
             </Thead>
             <Tbody>
-              {excelContext.slice(1).map((row, index) => (
+              {excelContext.map((row, index) => (
                 <Tr
                   _hover={{ background: hoverColor }}
                   cursor="pointer"
                   key={index}
                   onClick={() => handleClick(index)}>
-                  <Td>{row.Site}</Td>
-                  <Td>{row.Date}</Td>
-                  <Td>{row.Date_applied_to}</Td>
-                  <Td>{row.Company_name}</Td>
-                  <Td>{row.Position}</Td>
-                  <Td>{row.Fulltime_Contract}</Td>
-                  <Td>{row.Salary}</Td>
+                  <Td>{row.id}</Td>
+                  <Td>{row.site}</Td>
+                  <Td>{row.date}</Td>
+                  <Td>{row.date_applied_to}</Td>
+                  <Td>{row.company_name}</Td>
+                  <Td>{row.position}</Td>
+                  <Td>{row.fulltime_Contract}</Td>
+                  <Td>{row.salary}</Td>
                   <Td>
-                    <a href={row.Company_Website}>{row.Company_Website}</a>
+                    <a href={row.company_Website}>{row.company_Website}</a>
                   </Td>
-                  <Td>{row.Contact_info}</Td>
-                  <Td>{row.Call_back_date}</Td>
-                  <Td>{shortenVerbage(row.Tech_Stack)}</Td>
-                  <Td>{shortenVerbage(row.Round_1)}</Td>
-                  <Td>{shortenVerbage(row.Round_2)}</Td>
-                  <Td>{shortenVerbage(row.Round_3)}</Td>
-                  <Td>{shortenVerbage(row.Final)}</Td>
-                  <Td>{shortenVerbage(row.Notes)}</Td>
+                  <Td>{row.contact_info}</Td>
+                  <Td>{row.call_back_date}</Td>
+                  <Td>{shortenVerbage(row.tech_Stack)}</Td>
+                  <Td>{shortenVerbage(row.round_1)}</Td>
+                  <Td>{shortenVerbage(row.round_2)}</Td>
+                  <Td>{shortenVerbage(row.round_3)}</Td>
+                  <Td>{shortenVerbage(row.final)}</Td>
+                  <Td>{shortenVerbage(row.notes)}</Td>
                 </Tr>
               ))}
             </Tbody>

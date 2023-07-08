@@ -15,8 +15,14 @@ import ApplicationLists from "./ApplicationLists";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
-const MainDisplay = () => {
+interface Props {
+  setFilterButton: (filter: boolean) => void
+}
+
+const MainDisplay = ({ setFilterButton }: Props) => {
   const [clickBack, setClickBack] = useState(false);
+
+  const setFilterTrue = () => setFilterButton (true)
 
   return (
     <Flex flexFlow="column" padding={5}>
@@ -32,12 +38,27 @@ const MainDisplay = () => {
             <Stack spacing={3}>
               <Input width='25rem' variant="flushed" placeholder="Search for Company Name" />
             </Stack>
+            <Button onClick={() => setFilterTrue()}>
+              Filter
+            </Button>
           </HStack>
           <MenuList>
             <MenuItem>Date</MenuItem>
             <MenuItem>Salary</MenuItem>
+            <MenuItem>Date Applied To</MenuItem>
+            <MenuItem>Company Name</MenuItem>
+            <MenuItem>Position</MenuItem>
             <MenuItem>Full-Time</MenuItem>
-            <MenuItem>Contract</MenuItem>
+            <MenuItem>Part-Time</MenuItem>
+            <MenuItem>Salary</MenuItem>
+            <MenuItem>Company WebSite</MenuItem>
+            <MenuItem>Contact-Into</MenuItem>
+            <MenuItem>Call Back Date</MenuItem>
+            <MenuItem>Tech Stack</MenuItem>
+            <MenuItem>Round 1</MenuItem>
+            <MenuItem>Round 2</MenuItem>
+            <MenuItem>Final</MenuItem>
+            <MenuItem>Notes</MenuItem>
           </MenuList>
         </Menu>
       </Box>
