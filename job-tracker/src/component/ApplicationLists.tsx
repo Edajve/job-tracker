@@ -13,6 +13,7 @@ import ApplicationListPages from "./ApplicationListPages";
 import { useEffect, useState, useContext } from "react";
 import SingleAppDisplay from "./SingleAppDisplay";
 import { ExcelContext, ExcelShape } from "../App";
+import shortenVerbage from "../helpers/helpers"
 
 interface Props {
   backButtonState: boolean;
@@ -48,12 +49,6 @@ const ApplicationLists = ({ backButtonState }: Props) => {
       }
     }
     return header;
-  };
-
-  const shortenVerbage = (text: string, lengthOfText: number, showEllipsis: boolean = true): string => {
-    if (!text) return text;
-    const stringg =  showEllipsis === true ? text.substring(0, lengthOfText) + "..." : text.substring(0, lengthOfText) 
-    return stringg;
   };
 
   const { colorMode } = useColorMode();
