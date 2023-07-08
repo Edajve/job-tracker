@@ -7,6 +7,7 @@ import {
   ListIcon,
   ListItem,
   Textarea,
+  Spinner
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { updateColumnQuery } from "./SingleAppDisplay";
@@ -47,6 +48,7 @@ const ApplicationEditor = ({
       ...prevQuery,
       applicationNewEntry: editInputBox,
     }));
+    //will set to false after api request is finished
     setIsLoadingState(true);
   };
 
@@ -57,7 +59,9 @@ const ApplicationEditor = ({
     apiClient
       .put(
         `/api/v1/applications/${apiQuery.applicationColumn}/${apiQuery.applicationID}`,
-        { updatedColumn: apiQuery.applicationNewEntry }
+        {
+          updatedColumn: apiQuery.applicationNewEntry,
+        }
       )
       .then(() => {
         setIsLoadingState(false);
@@ -105,7 +109,7 @@ const ApplicationEditor = ({
           Save Changes
         </Button>
       </Box>
-      {isLoadingState && "Loading"}
+      {isLoadingState && <Spinner size="xl" color="blue.500" />}
       {apiFailed && (
         <List paddingTop={4} paddingLeft={2}>
           <ListItem>
