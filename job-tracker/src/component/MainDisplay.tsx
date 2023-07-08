@@ -16,13 +16,19 @@ import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
 interface Props {
-  setFilterButton: (filter: boolean) => void
+  setFilterButton: (filter: boolean) => void;
+  filterValue: (input: string) => void;
 }
 
-const MainDisplay = ({ setFilterButton }: Props) => {
+const MainDisplay = ({ setFilterButton, filterValue}: Props) => {
   const [clickBack, setClickBack] = useState(false);
 
-  const setFilterTrue = () => setFilterButton (true)
+  const onFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.currentTarget.value;
+    filterValue(inputValue);
+  };
+
+  const setFilterTrue = () => setFilterButton(true);
 
   return (
     <Flex flexFlow="column" padding={5}>
@@ -34,14 +40,18 @@ const MainDisplay = ({ setFilterButton }: Props) => {
               <ArrowLeftIcon />
             </Button>
             <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-             Ascend By:
+              Ascend By:
             </MenuButton>
             <Stack spacing={3}>
-              <Input width='25rem' variant="flushed" placeholder="Search for Company Name" />
+              <Input
+                width="25rem"
+                variant="flushed"
+                placeholder="Search for Company Name"
+                onChange={onFilter}
+              />
             </Stack>
-            <Button onClick={() => setFilterTrue()}>
-              Filter
-            </Button>
+            <Button onClick={setFilterTrue}>Filter</Button>
+            <Button>Show All</Button>
           </HStack>
           <MenuList>
             <MenuItem>Date</MenuItem>
@@ -65,7 +75,7 @@ const MainDisplay = ({ setFilterButton }: Props) => {
       </Box>
       <Box height="97vh" border="2px solid gray" borderRadius="10px">
         {/* Applications UI */}
-        <ApplicationLists  backButtonState={clickBack} />
+        <ApplicationLists backButtonState={clickBack} />
       </Box>
     </Flex>
   );

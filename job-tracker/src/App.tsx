@@ -32,13 +32,21 @@ export const ExcelContext = createContext([] as ExcelShape[]);
 function App() {
   const [excelData, setExcelData] = useState<ExcelShape[]>([] as ExcelShape[]);
   const [filterClick, setFilterClick] = useState<boolean>(false);
+  const [filterVal, setFilterVal] = useState("");
 
   useEffect(() => {
-    //call api from here if 'filterClick' is true, then after you make the api call set
-    //state to false
-    // PS YOU SHOULD ADD SOME LOGIC THAT DISABLES THE FILTER BUTTON UNTIL THE API CALL IS FINISHED
+    if (filterClick && filterVal.length > 0) {
+      apiClient
+        .get(`/api/v1/applications/query?company_name=${filterVal}`)
+        .then((response) => setExcelData(response.data.data))
+        .catch((error) => console.log(error));
+    }
     setFilterClick(false);
-  }, [filterClick]);
+  }, [filterClick, filterVal]);
+
+  const update = (value: string) => {
+    setFilterVal(value);
+  };
 
   useEffect(() => {
     apiClient
@@ -71,7 +79,10 @@ function App() {
         {/* Main */}
         <GridItem overflow="hidden" area="main" height="500vh" marginTop="-4px">
           <Divider borderColor="gray.200" />
-          <MainDisplay setFilterButton={setFilterClick} />
+          <MainDisplay
+            filterValue={(data) => update(data)}
+            setFilterButton={setFilterClick}
+          />
         </GridItem>
       </Grid>
     </ExcelContext.Provider>
