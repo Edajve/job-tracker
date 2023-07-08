@@ -3,11 +3,9 @@ import {
   Box,
   Button,
   Heading,
-  Input,
   List,
   ListIcon,
   ListItem,
-  Text,
   Textarea
 } from "@chakra-ui/react";
 import { useState } from "react";
