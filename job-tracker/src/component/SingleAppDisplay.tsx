@@ -1,4 +1,4 @@
-import { Box, Button, SimpleGrid, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Card, CardBody, CardHeader, Heading, SimpleGrid, Stack, StackDivider, Text, useColorMode } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ApplicationEditor from "./ApplicationEditor";
 import { ExcelShape } from "../App";
@@ -19,15 +19,6 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
   const { colorMode } = useColorMode();
   const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
 
-  const titleStyles = {
-    fontSize: "3xl",
-  };
-
-  const descriptionStyles = {
-    color: "orange.200",
-    overflowWrap: "break-word",
-  };
-
   const boxStyles = {
     borderRadius: "10px",
     border: "1px solid gray",
@@ -40,247 +31,45 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
     },
   };
 
-  const buttonStyles = {
-    marginTop: "4.5rem",
-    marginLeft: "14rem",
-  };
-
-  const handleEditClick = () => {
-    setEditButton(true);
-  };
-
   if (singleApplication === null || singleApplication === undefined) return;
-
-  console.log(helpers.TableColumn)
 
   return (
     <>
       {!editButton ? (
-        <SimpleGrid column={8} minChildWidth="300px" height="50rem">
-          {helpers.TableColumn.map(column => (
-            <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              {column}
-            </Text>
-            <Text sx={descriptionStyles}>{application?.site}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          ))}
-          {/* <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Site:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.site}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Date:
-            </Text>
-            <Text sx={descriptionStyles}>{helpers.shortenVerbage(application?.date, 10, false)}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Date Applied To:
-            </Text>
-            <Text sx={descriptionStyles}>{helpers.shortenVerbage(application?.date_applied_to, 10, false)}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Company Name:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.company_name}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Position:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.position}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Fulltime/Contract:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.fulltime_Contract}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Salary:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.salary}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Company Website:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.company_Website}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Contact information:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.contact_info}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Call Back Date:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.call_back_date}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Tech Stack:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.tech_Stack}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Round 1:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.round_1}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Round 2:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.round_2}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Round 3:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.round_3}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Final:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.final}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box>
-          <Box sx={boxStyles} bg="grey.300" height="200px">
-            <Text sx={titleStyles} as="b" fontSize="2xl">
-              Notes:
-            </Text>
-            <Text sx={descriptionStyles}>{application?.notes}</Text>
-            <Button
-              onClick={() => handleEditClick()}
-              sx={buttonStyles}
-              colorScheme="gray"
-              variant="outline">
-              Edit
-            </Button>
-          </Box> */}
-        </SimpleGrid>
+        <Card>
+        <CardHeader>
+          <Heading size='md'>Client Report</Heading>
+        </CardHeader>
+      
+        <CardBody>
+          <Stack divider={<StackDivider />} spacing='4'>
+            <Box>
+              <Heading size='xs' textTransform='uppercase'>
+                Summary
+              </Heading>
+              <Text pt='2' fontSize='sm'>
+                View a summary of all your clients over the last month.
+              </Text>
+            </Box>
+            <Box>
+              <Heading size='xs' textTransform='uppercase'>
+                Overview
+              </Heading>
+              <Text pt='2' fontSize='sm'>
+                Check out the overview of your clients.
+              </Text>
+            </Box>
+            <Box>
+              <Heading size='xs' textTransform='uppercase'>
+                Analysis
+              </Heading>
+              <Text pt='2' fontSize='sm'>
+                See a detailed analysis of all your business clients.
+              </Text>
+            </Box>
+          </Stack>
+        </CardBody>
+      </Card>
       ) : (
         <ApplicationEditor handleGoingBack={() => setEditButton(!editButton)} />
       )}
