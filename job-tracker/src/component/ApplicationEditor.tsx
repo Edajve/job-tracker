@@ -52,35 +52,30 @@ const ApplicationEditor = ({
   };
 
   useEffect(() => {
-    if (
-      apiQuery.applicationNewEntry !== "" &&
-      apiQuery.applicationNewEntry !== undefined
-    ) {
-      apiClient
-        .put(
-          `/api/v1/applications/${apiQuery.applicationColumn}/${apiQuery.applicationID}`,
-          { updatedColumn: apiQuery.applicationNewEntry }
-        )
-        .then((res) => {
-          if (res) {
-            setIsLoadingState(false);
-            setSuccess(true);
-            setTimeout(() => {
-              setSuccess(false);
-            }, 2000);
-          }
-        })
-        .catch((error) => {
-          if (error) {
-            setIsLoadingState(false);
-            setFailed(true);
-            setTimeout(() => {
-              setFailed(false);
-            }, 2000);
-          }
-          new Error(error);
-        });
-    }
+    if (!apiQuery.applicationNewEntry || apiQuery.applicationNewEntry === "")
+      return;
+
+    apiClient
+      .put(
+        `/api/v1/applications/${apiQuery.applicationColumn}/${apiQuery.applicationID}`,
+        { updatedColumn: apiQuery.applicationNewEntry }
+      )
+      .then((res) => {
+        setIsLoadingState(false);
+        setSuccess(true);
+
+        setTimeout(() => {
+          setSuccess(false);
+        }, 2000);
+      })
+      .catch((error) => {
+        setIsLoadingState(false);
+        setFailed(true);
+
+        setTimeout(() => {
+          setFailed(false);
+        }, 2000);
+      });
   }, [apiQuery.applicationNewEntry]);
 
   return (
