@@ -13,7 +13,7 @@ import ApplicationListPages from "./ApplicationListPages";
 import { useEffect, useState, useContext } from "react";
 import SingleAppDisplay from "./SingleAppDisplay";
 import { ExcelContext, ExcelShape } from "../App";
-import helpers from "../helpers/helpers"
+import helpers from "../helpers/helpers";
 
 interface Props {
   backButtonState: boolean;
@@ -57,11 +57,11 @@ const ApplicationLists = ({ backButtonState }: Props) => {
           <Table variant="simple">
             <Thead>
               <Tr>
-                {
-                helpers.objectToArray(excelContext[0]).map((row, index) =>(
-
-                  <Th key={index}>{row}</Th>
-                ))}
+                {helpers
+                  .objectToArray(excelContext[0], true)
+                  .map((row, index) => (
+                    <Th key={index}>{row}</Th>
+                  ))}
               </Tr>
             </Thead>
             <Tbody>
@@ -74,7 +74,9 @@ const ApplicationLists = ({ backButtonState }: Props) => {
                   <Td>{row.id}</Td>
                   <Td>{row.site}</Td>
                   <Td>{helpers.shortenVerbage(row.date, 10, false)}</Td>
-                  <Td>{helpers.shortenVerbage(row.date_applied_to, 10, false)}</Td>
+                  <Td>
+                    {helpers.shortenVerbage(row.date_applied_to, 10, false)}
+                  </Td>
                   <Td>{row.company_name}</Td>
                   <Td>{row.position}</Td>
                   <Td>{row.fulltime_Contract}</Td>
