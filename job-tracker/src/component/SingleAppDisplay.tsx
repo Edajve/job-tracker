@@ -2,7 +2,7 @@ import { Box, Button, SimpleGrid, Text, useColorMode } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ApplicationEditor from "./ApplicationEditor";
 import { ExcelShape } from "../App";
-import shortenVerbage from "../helpers/helpers";
+import helpers from "../helpers/helpers";
 
 interface Props {
   singleApplication(singleApp: ExcelShape): ExcelShape;
@@ -51,11 +51,28 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
 
   if (singleApplication === null || singleApplication === undefined) return;
 
+  console.log(helpers.TableColumn)
+
   return (
     <>
       {!editButton ? (
         <SimpleGrid column={8} minChildWidth="300px" height="50rem">
-          <Box sx={boxStyles} bg="grey.300" height="200px">
+          {helpers.TableColumn.map(column => (
+            <Box sx={boxStyles} bg="grey.300" height="200px">
+            <Text sx={titleStyles} as="b" fontSize="2xl">
+              {column}
+            </Text>
+            <Text sx={descriptionStyles}>{application?.site}</Text>
+            <Button
+              onClick={() => handleEditClick()}
+              sx={buttonStyles}
+              colorScheme="gray"
+              variant="outline">
+              Edit
+            </Button>
+          </Box>
+          ))}
+          {/* <Box sx={boxStyles} bg="grey.300" height="200px">
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Site:
             </Text>
@@ -72,7 +89,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Date:
             </Text>
-            <Text sx={descriptionStyles}>{shortenVerbage(application?.date, 10, false)}</Text>
+            <Text sx={descriptionStyles}>{helpers.shortenVerbage(application?.date, 10, false)}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -85,7 +102,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
             <Text sx={titleStyles} as="b" fontSize="2xl">
               Date Applied To:
             </Text>
-            <Text sx={descriptionStyles}>{shortenVerbage(application?.date_applied_to, 10, false)}</Text>
+            <Text sx={descriptionStyles}>{helpers.shortenVerbage(application?.date_applied_to, 10, false)}</Text>
             <Button
               onClick={() => handleEditClick()}
               sx={buttonStyles}
@@ -262,7 +279,7 @@ const SingleAppDisplay = ({ singleApplication }: Props) => {
               variant="outline">
               Edit
             </Button>
-          </Box>
+          </Box> */}
         </SimpleGrid>
       ) : (
         <ApplicationEditor handleGoingBack={() => setEditButton(!editButton)} />
