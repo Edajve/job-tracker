@@ -70,7 +70,7 @@ const MainDisplay = ({
               />
             </Stack>
             <Button onClick={setFilterTrue}>Filter</Button>
-            <Button onClick={onShowAll}>Show All</Button>
+            <Button onClick={onShowAll}>Show All / Refresh</Button>
           </HStack>
           <MenuList >
             <MenuItem onClick={() => onDropDownClick("Date")}>Date</MenuItem>
