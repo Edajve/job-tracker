@@ -18,9 +18,10 @@ import { useState } from "react";
 interface Props {
   setFilterButton: (filter: boolean) => void;
   filterValue: (input: string) => void;
+  toggleShowAll(): void;
 }
 
-const MainDisplay = ({ setFilterButton, filterValue}: Props) => {
+const MainDisplay = ({ setFilterButton, filterValue, toggleShowAll }: Props) => {
   const [clickBack, setClickBack] = useState(false);
 
   const onFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +52,7 @@ const MainDisplay = ({ setFilterButton, filterValue}: Props) => {
               />
             </Stack>
             <Button onClick={setFilterTrue}>Filter</Button>
-            <Button>Show All</Button>
+            <Button onClick={toggleShowAll}>Show All</Button>
           </HStack>
           <MenuList>
             <MenuItem>Date</MenuItem>
