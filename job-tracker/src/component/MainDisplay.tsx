@@ -19,25 +19,34 @@ interface Props {
   setFilterButton: (filter: boolean) => void;
   filterValue: (input: string) => void;
   toggleShowAll(): void;
+  onDropDown: (value: string) => void;
 }
 
-const MainDisplay = ({ setFilterButton, filterValue, toggleShowAll }: Props) => {
+const MainDisplay = ({
+  setFilterButton,
+  filterValue,
+  toggleShowAll,
+  onDropDown
+}: Props) => {
   const [clickBack, setClickBack] = useState(false);
-  const [value, setValue] = useState("")
+  const [value, setValue] = useState("");
 
   const onFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
-    setValue(inputValue)
+    setValue(inputValue);
     filterValue(inputValue);
   };
 
   const setFilterTrue = () => setFilterButton(true);
 
   const onShowAll = () => {
-    toggleShowAll()
-    setValue("")
-  }
+    toggleShowAll();
+    setValue("");
+  };
 
+  const onDropDownClick = (name: string) => {
+    onDropDown(name)
+  }
 
   return (
     <Flex flexFlow="column" padding={5}>
@@ -63,23 +72,23 @@ const MainDisplay = ({ setFilterButton, filterValue, toggleShowAll }: Props) => 
             <Button onClick={setFilterTrue}>Filter</Button>
             <Button onClick={onShowAll}>Show All</Button>
           </HStack>
-          <MenuList>
-            <MenuItem>Date</MenuItem>
-            <MenuItem>Salary</MenuItem>
-            <MenuItem>Date Applied To</MenuItem>
-            <MenuItem>Company Name</MenuItem>
-            <MenuItem>Position</MenuItem>
-            <MenuItem>Full-Time</MenuItem>
-            <MenuItem>Part-Time</MenuItem>
-            <MenuItem>Salary</MenuItem>
-            <MenuItem>Company WebSite</MenuItem>
-            <MenuItem>Contact-Into</MenuItem>
-            <MenuItem>Call Back Date</MenuItem>
-            <MenuItem>Tech Stack</MenuItem>
-            <MenuItem>Round 1</MenuItem>
-            <MenuItem>Round 2</MenuItem>
-            <MenuItem>Final</MenuItem>
-            <MenuItem>Notes</MenuItem>
+          <MenuList >
+            <MenuItem onClick={() => onDropDownClick("Date")}>Date</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Salary")}>Salary</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Date Applied To")}>Date Applied To</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Company Name")}>Company Name</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Position")}>Position</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Full-Time")}>Full-Time</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Part-Time")}>Part-Time</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Salary")}>Salary</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Company WebSite")}>Company WebSite</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Contact-Into")}>Contact-Into</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Call Back Date")}>Call Back Date</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Tech Stack")}>Tech Stack</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Round 1")}>Round 1</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Round ")}>Round 2</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Final")}>Final</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Notes")}>Notes</MenuItem>
           </MenuList>
         </Menu>
       </Box>

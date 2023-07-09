@@ -27,7 +27,9 @@ interface Props {
 const ApplicationLists = ({ backButtonState }: Props) => {
   const { colorMode } = useColorMode();
   const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
-  const [indexOfApplication, setIndexOfApplication] = useState<null | string>(null);
+  const [indexOfApplication, setIndexOfApplication] = useState<null | string>(
+    null
+  );
   // i know this is is horribly implemented, i need to learn react router, but i feel
   // implementing react router at this point will take a lot of refactoring so i'll
   // implement it after i learn it fully
@@ -35,13 +37,9 @@ const ApplicationLists = ({ backButtonState }: Props) => {
 
   const excelContext = useContext(ExcelContext);
 
-  useEffect(() => {
-    setIndexOfApplication(null);
-  }, [backButtonState]);
+  useEffect(() => setIndexOfApplication(null), [backButtonState]);
 
-  const handleClick = (idOfSingleApplication: string): void => {
-    setIndexOfApplication(idOfSingleApplication);
-  };
+  const handleClick = (idOfSingleApplication: string): void => setIndexOfApplication(idOfSingleApplication)
 
   return (
     <Box height="300px">
