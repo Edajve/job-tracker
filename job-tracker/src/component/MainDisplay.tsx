@@ -48,9 +48,9 @@ const MainDisplay = ({
   };
 
   const onDropDownClick = (name: string) => {
-    //run method to change name from UI version to matching the db name
-    helpers.transformToDBColumnName(name)
-    onDropDown(name)
+    //run method to match name from UI version to matching the DB column name
+    const columnQueryForDB = helpers.matchToDbName(name)
+    onDropDown(columnQueryForDB)
   }
 
   return (
@@ -78,6 +78,7 @@ const MainDisplay = ({
             <Button onClick={onShowAll}>Show All / Refresh</Button>
           </HStack>
           <MenuList >
+            <MenuItem onClick={() => onDropDownClick("Site")}>Site</MenuItem>
             <MenuItem onClick={() => onDropDownClick("Date")}>Date</MenuItem>
             <MenuItem onClick={() => onDropDownClick("Salary")}>Salary</MenuItem>
             <MenuItem onClick={() => onDropDownClick("Date Applied To")}>Date Applied To</MenuItem>
@@ -87,11 +88,12 @@ const MainDisplay = ({
             <MenuItem onClick={() => onDropDownClick("Part-Time")}>Part-Time</MenuItem>
             <MenuItem onClick={() => onDropDownClick("Salary")}>Salary</MenuItem>
             <MenuItem onClick={() => onDropDownClick("Company WebSite")}>Company WebSite</MenuItem>
-            <MenuItem onClick={() => onDropDownClick("Contact-Into")}>Contact-Into</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Contact Info")}>Contact-Info</MenuItem>
             <MenuItem onClick={() => onDropDownClick("Call Back Date")}>Call Back Date</MenuItem>
             <MenuItem onClick={() => onDropDownClick("Tech Stack")}>Tech Stack</MenuItem>
             <MenuItem onClick={() => onDropDownClick("Round 1")}>Round 1</MenuItem>
-            <MenuItem onClick={() => onDropDownClick("Round ")}>Round 2</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Round 2")}>Round 2</MenuItem>
+            <MenuItem onClick={() => onDropDownClick("Round 3")}>Round 3</MenuItem>
             <MenuItem onClick={() => onDropDownClick("Final")}>Final</MenuItem>
             <MenuItem onClick={() => onDropDownClick("Notes")}>Notes</MenuItem>
           </MenuList>

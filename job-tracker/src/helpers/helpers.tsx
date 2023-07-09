@@ -1,10 +1,14 @@
 import ExcelShape from "../types/Excel";
 
 export interface Helpers {
-  shortenVerbage: (text: string, lengthOfText: number, showEllipsis?: boolean) => string;
+  shortenVerbage: (
+    text: string,
+    lengthOfText: number,
+    showEllipsis?: boolean
+  ) => string;
   objectToArray: (theObject: Object | ExcelShape, key?: boolean) => string[];
   singleApplicationDetials: string[];
-  transformToDBColumnName: (dropDownValue: string) => string;
+  matchToDbName: (dropDownValue: string) => string;
 }
 
 const shortenVerbage = (
@@ -39,30 +43,35 @@ const singleApplicationDetials = [
 
 const objectToArray = (
   theObject: Object | ExcelShape,
-  key: boolean = false
+  returnKeyPropertyOfObject: boolean = false
 ): string[] => {
   if (!theObject) return [];
-  const array = [];
+  const array: string[] = [];
 
-  if (key === true) {
-    for (const [key] of Object.entries(theObject)) {
-      array.push(key);
-    }
-  } else {
-    for (const [value] of Object.entries(theObject)) {
-      array.push(value);
-    }
-  }
+  returnKeyPropertyOfObject === true
+    ? Object.entries(theObject).forEach(([key]) => array.push(key))
+    : Object.entries(theObject).forEach(([value]) => array.push(value));
+
   return array;
 };
 
-const transformToDBColumnName = (dropDownValue: string): string => {
-  return dropDownValue
-}
+const matchToDbName = (dropDownValue: string): string => {
+  const returningString = [];
+  if (dropDownValue === "Full-Time" || dropDownValue === "Part-Time")
+    return "fulltime_contract";
+  for (let index = 0; index < dropDownValue.length; index++) {
+    const currentChar = dropDownValue.charAt(index);
+    currentChar === " " || currentChar === "-"
+      ? returningString.push("_")
+      : returningString.push(currentChar);
+  }
+  return returningString.join("");
+};
+
 const helpers: Helpers = {
   shortenVerbage,
   objectToArray,
   singleApplicationDetials,
-  transformToDBColumnName,
+  matchToDbName,
 };
 export default helpers;
