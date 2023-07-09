@@ -44,13 +44,13 @@ const MainDisplay = ({
   const onShowAll = () => {
     toggleShowAll();
     setValue("");
-    filterValue("")
+    filterValue("");
   };
 
   const onDropDownClick = (name: string) => {
     //run method to match name from UI version to matching the DB column name
-    const columnQueryForDB = helpers.matchToDbName(name)
-    onDropDown(columnQueryForDB)
+    const columnQueryForDB = helpers.matchToDbName(name);
+    onDropDown(columnQueryForDB);
   }
 
   return (

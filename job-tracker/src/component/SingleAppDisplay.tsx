@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ApplicationEditor from "./ApplicationEditor";
-import ExcelShape from "../types/Excel";
+import ApplicationShape from "../types/Excel";
 import apiClient from "../services/http-client";
 
 interface Props {
@@ -24,14 +24,16 @@ export interface updateColumnQuery {
 }
 
 const SingleAppDisplay = ({ idOfChoosenApp }: Props) => {
-  const [application, setApplication] = useState<ExcelShape>({} as ExcelShape);
+  const [application, setApplication] = useState<ApplicationShape>(
+    {} as ApplicationShape
+  );
   const [editButton, setEditButton] = useState(false);
   const [apiQuery, setApiQuery] = useState<updateColumnQuery>(
     {} as updateColumnQuery
   );
 
   useEffect(() => {
-    let aSingleApplication: ExcelShape;
+    let aSingleApplication: ApplicationShape;
     apiClient
       .get(`/api/v1/applications/${idOfChoosenApp}`)
       .then((res) => {
@@ -74,7 +76,9 @@ const SingleAppDisplay = ({ idOfChoosenApp }: Props) => {
           <CardBody>
             <Stack divider={<StackDivider />} spacing="4">
               {Object.entries(application).map(([key, value]) => (
-                <Box sx={boxStyles} onClick={() => clickedOnIndividualDetail(key)}>
+                <Box
+                  sx={boxStyles}
+                  onClick={() => clickedOnIndividualDetail(key)}>
                   <Heading size="xs" textTransform="uppercase">
                     {key}
                   </Heading>

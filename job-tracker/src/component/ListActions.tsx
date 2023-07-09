@@ -1,12 +1,22 @@
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Button, List, ListIcon, ListItem } from "@chakra-ui/react";
 
-const ListActions = () => {
+interface Props {
+  setApplicationStatus:(status: boolean) => void;
+}
+
+const ListActions = ({ setApplicationStatus }: Props) => {
+  
+
+  
   return (
     <List spacing={4} paddingTop={12}>
       <ListItem>
-        <Button>
-          <ListIcon as={AddIcon} color="green.500" />
+        <Button onClick={() => setApplicationStatus(true)}>
+          <ListIcon
+          as={AddIcon}
+          color="green.500"
+          />
           Add Application
         </Button>
       </ListItem>

@@ -1,4 +1,4 @@
-import ExcelShape from "../types/Excel";
+import ApplicationShape from "../types/Excel";
 
 export interface Helpers {
   shortenVerbage: (
@@ -6,9 +6,13 @@ export interface Helpers {
     lengthOfText: number,
     showEllipsis?: boolean
   ) => string;
-  objectToArray: (theObject: Object | ExcelShape, key?: boolean) => string[];
+  objectToArray: (
+    theObject: Object | ApplicationShape,
+    key?: boolean
+  ) => string[];
   singleApplicationDetials: string[];
   matchToDbName: (dropDownValue: string) => string;
+  formatDate(inputElement: React.ChangeEvent<HTMLInputElement>): string;
 }
 
 const shortenVerbage = (
@@ -42,7 +46,7 @@ const singleApplicationDetials = [
 ];
 
 const objectToArray = (
-  theObject: Object | ExcelShape,
+  theObject: Object | ApplicationShape,
   returnKeyPropertyOfObject: boolean = false
 ): string[] => {
   if (!theObject) return [];
@@ -68,10 +72,26 @@ const matchToDbName = (dropDownValue: string): string => {
   return returningString.join("");
 };
 
+const formatDate = (
+  inputElement: React.ChangeEvent<HTMLInputElement>
+): string => {
+  const date = new Date(inputElement.target.value);
+  const formattedDate = date
+    .toLocaleDateString("en-CA", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replace(/[/]/g, "-");
+  inputElement.target.value = formattedDate;
+  return formattedDate;
+};
+
 const helpers: Helpers = {
   shortenVerbage,
   objectToArray,
   singleApplicationDetials,
   matchToDbName,
+  formatDate,
 };
 export default helpers;

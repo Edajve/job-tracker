@@ -5,16 +5,20 @@ import NavBar from "./component/NavBar";
 import MainDisplay from "./component/MainDisplay";
 import ListActions from "./component/ListActions";
 import apiClient from "./services/http-client";
-import ExcelShape from "./types/Excel";
+import ApplicationShape from "./types/Excel";
+import CreateApplication from "./component/CreateApplication";
 
-export const ExcelContext = createContext([] as ExcelShape[]);
+export const ExcelContext = createContext([] as ApplicationShape[]);
 
 function App() {
-  const [excelData, setExcelData] = useState<ExcelShape[]>([] as ExcelShape[]);
+  const [excelData, setExcelData] = useState<ApplicationShape[]>(
+    [] as ApplicationShape[]
+  );
   const [filterClick, setFilterClick] = useState<boolean>(false);
   const [filterVal, setFilterVal] = useState("");
   const [showAllToggle, setShowAllToggle] = useState(false);
-  const [dropDownValue, setDropDownValue] = useState("")
+  const [dropDownValue, setDropDownValue] = useState("");
+  const [addApplication, setAddApplication] = useState(false);
 
   //initial render API (get all applications)
   useEffect(() => {
@@ -46,16 +50,20 @@ function App() {
   //ascend by column API
   useEffect(() => {
     if (!dropDownValue) return;
-    apiClient.get(`api/v1/applications/dynamic/query?&column=${dropDownValue}`)
-    .then(response => (
-      setExcelData(response.data.data)
-    ))
-    .catch(error => new Error(error))
-  }, [dropDownValue])
+    apiClient
+      .get(`api/v1/applications/dynamic/query?&column=${dropDownValue}`)
+      .then((response) => setExcelData(response.data.data))
+      .catch((error) => new Error(error));
+  }, [dropDownValue]);
 
   const onShowAllClick = () => setShowAllToggle(!showAllToggle);
 
   const updateSearchInput = (value: string) => setFilterVal(value);
+
+  const setAppPageToFalse = () => {
+    console.log("first")
+    setAddApplication(true)
+  }
 
   return (
     <ExcelContext.Provider value={excelData}>
@@ -75,18 +83,22 @@ function App() {
         {/* Aside */}
         <Show above="lg">
           <GridItem area="aside" paddingX={5}>
-            <ListActions />
+            <ListActions setApplicationStatus={setAppPageToFalse}/>
           </GridItem>
         </Show>
         {/* Main */}
-        <GridItem overflow="hidden" area="main" height="500vh" marginTop="-4px">
+        <GridItem overflow="hidden" area="main" height="300vh" marginTop="-4px">
           <Divider borderColor="gray.200" />
-          <MainDisplay
-            onDropDown={value => setDropDownValue(value)}
-            toggleShowAll={onShowAllClick}
-            filterValue={(data) => updateSearchInput(data)}
-            setFilterButton={setFilterClick}
-          />
+          {addApplication ? (
+            <CreateApplication setApplicationStatus={setAddApplication}/>
+          ) : (
+            <MainDisplay
+              onDropDown={(value) => setDropDownValue(value)}
+              toggleShowAll={onShowAllClick}
+              filterValue={(data) => updateSearchInput(data)}
+              setFilterButton={setFilterClick}
+            />
+          )}
         </GridItem>
       </Grid>
     </ExcelContext.Provider>
