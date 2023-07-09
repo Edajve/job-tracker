@@ -1,4 +1,11 @@
-import { ExcelShape } from "../App";
+import ExcelShape from "../types/Excel";
+
+export interface Helpers {
+  shortenVerbage: (text: string, lengthOfText: number, showEllipsis?: boolean) => string;
+  objectToArray: (theObject: Object | ExcelShape, key?: boolean) => string[];
+  singleApplicationDetials: string[];
+  transformToDBColumnName: (dropDownValue: string) => string;
+}
 
 const shortenVerbage = (
   text: string,
@@ -49,4 +56,13 @@ const objectToArray = (
   return array;
 };
 
-export default { shortenVerbage, objectToArray, singleApplicationDetials };
+const transformToDBColumnName = (dropDownValue: string): string => {
+  return dropDownValue
+}
+const helpers: Helpers = {
+  shortenVerbage,
+  objectToArray,
+  singleApplicationDetials,
+  transformToDBColumnName,
+};
+export default helpers;

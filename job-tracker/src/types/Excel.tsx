@@ -1,4 +1,4 @@
-export interface ExcelShape {
+interface ExcelShape {
     id: string;
     site: string;
     date: string;
@@ -17,3 +17,5 @@ export interface ExcelShape {
     final: string;
     notes: string;
   }
+
+  export default ExcelShape;

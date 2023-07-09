@@ -14,6 +14,8 @@ import { BsChevronDown } from "react-icons/bs";
 import ApplicationLists from "./ApplicationLists";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { useState } from "react";
+import helpers from "../helpers/helpers";
+
 
 interface Props {
   setFilterButton: (filter: boolean) => void;
@@ -42,9 +44,12 @@ const MainDisplay = ({
   const onShowAll = () => {
     toggleShowAll();
     setValue("");
+    filterValue("")
   };
 
   const onDropDownClick = (name: string) => {
+    //run method to change name from UI version to matching the db name
+    helpers.transformToDBColumnName(name)
     onDropDown(name)
   }
 

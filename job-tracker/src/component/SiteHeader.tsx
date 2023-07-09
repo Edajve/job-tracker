@@ -1,5 +1,5 @@
 const SiteHeader = () => {
-  return <>Site Header</>;
+  return <>Job Tracker</>;
 };
 
 export default SiteHeader;

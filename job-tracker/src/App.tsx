@@ -1,4 +1,3 @@
-import "./App.css";
 import { useState, createContext, useEffect } from "react";
 import { Grid, GridItem } from "@chakra-ui/layout";
 import { Divider, Show } from "@chakra-ui/react";
@@ -6,8 +5,7 @@ import NavBar from "./component/NavBar";
 import MainDisplay from "./component/MainDisplay";
 import ListActions from "./component/ListActions";
 import apiClient from "./services/http-client";
-import { ExcelShape } from "./types/Excel";
-
+import ExcelShape from "./types/Excel";
 
 export const ExcelContext = createContext([] as ExcelShape[]);
 

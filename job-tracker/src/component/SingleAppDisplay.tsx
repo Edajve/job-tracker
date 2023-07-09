@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ApplicationEditor from "./ApplicationEditor";
-import { ExcelShape } from "../App";
+import ExcelShape from "../types/Excel";
 import apiClient from "../services/http-client";
 
 interface Props {
