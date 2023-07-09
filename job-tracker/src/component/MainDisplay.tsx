@@ -23,13 +23,21 @@ interface Props {
 
 const MainDisplay = ({ setFilterButton, filterValue, toggleShowAll }: Props) => {
   const [clickBack, setClickBack] = useState(false);
+  const [value, setValue] = useState("")
 
   const onFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
+    setValue(inputValue)
     filterValue(inputValue);
   };
 
   const setFilterTrue = () => setFilterButton(true);
+
+  const onShowAll = () => {
+    toggleShowAll()
+    setValue("")
+  }
+
 
   return (
     <Flex flexFlow="column" padding={5}>
@@ -49,10 +57,11 @@ const MainDisplay = ({ setFilterButton, filterValue, toggleShowAll }: Props) => 
                 variant="flushed"
                 placeholder="Search for Company Name"
                 onChange={onFilter}
+                value={value}
               />
             </Stack>
             <Button onClick={setFilterTrue}>Filter</Button>
-            <Button onClick={toggleShowAll}>Show All</Button>
+            <Button onClick={onShowAll}>Show All</Button>
           </HStack>
           <MenuList>
             <MenuItem>Date</MenuItem>

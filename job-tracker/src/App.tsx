@@ -62,13 +62,9 @@ function App() {
       .catch((error) => new Error(error));
   }, [showAllToggle]);
 
-  const onShowAll = () => {
-    setShowAllToggle(!showAllToggle);
-  };
+  const onShowAllClick = () => setShowAllToggle(!showAllToggle);
 
-  const update = (value: string) => {
-    setFilterVal(value);
-  };
+  const updateSearchInput = (value: string) => setFilterVal(value);
 
   return (
     <ExcelContext.Provider value={excelData}>
@@ -95,8 +91,8 @@ function App() {
         <GridItem overflow="hidden" area="main" height="500vh" marginTop="-4px">
           <Divider borderColor="gray.200" />
           <MainDisplay
-            toggleShowAll={onShowAll}
-            filterValue={(data) => update(data)}
+            toggleShowAll={onShowAllClick}
+            filterValue={(data) => updateSearchInput(data)}
             setFilterButton={setFilterClick}
           />
         </GridItem>
