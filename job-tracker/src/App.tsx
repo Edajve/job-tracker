@@ -6,26 +6,8 @@ import NavBar from "./component/NavBar";
 import MainDisplay from "./component/MainDisplay";
 import ListActions from "./component/ListActions";
 import apiClient from "./services/http-client";
+import { ExcelShape } from "./types/Excel";
 
-export interface ExcelShape {
-  id: string;
-  site: string;
-  date: string;
-  date_applied_to: string;
-  company_name: string;
-  position: string;
-  fulltime_Contract: string;
-  salary: string;
-  company_website: string;
-  contact_info: string;
-  call_back_date: string;
-  tech_stack: string;
-  round_1: string;
-  round_2: string;
-  round_3: string;
-  final: string;
-  notes: string;
-}
 
 export const ExcelContext = createContext([] as ExcelShape[]);
 
@@ -43,7 +25,7 @@ function App() {
       .then((response) => setExcelData(response.data.data))
       .catch((error) => new Error(error));
   }, []);
-  
+
   //search by company name API
   useEffect(() => {
     if (filterClick && filterVal.length > 0) {
