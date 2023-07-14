@@ -11,14 +11,14 @@ import CreateApplication from "./component/CreateApplication";
 export const ExcelContext = createContext([] as ApplicationShape[]);
 
 function App() {
-  const [excelData, setExcelData] = useState<ApplicationShape[]>(
-    [] as ApplicationShape[]
-  );
+  const [excelData, setExcelData] = useState([] as ApplicationShape[]);
   const [filterClick, setFilterClick] = useState<boolean>(false);
   const [filterVal, setFilterVal] = useState("");
   const [showAllToggle, setShowAllToggle] = useState(false);
   const [dropDownValue, setDropDownValue] = useState("");
   const [addApplication, setAddApplication] = useState(false);
+  const [singleApplication, setSingleApplication] = useState("");
+  const [keepIndex, setKeepIndex] = useState(false);
 
   //initial render API (get all applications)
   useEffect(() => {
@@ -57,13 +57,8 @@ function App() {
   }, [dropDownValue]);
 
   const onShowAllClick = () => setShowAllToggle(!showAllToggle);
-
   const updateSearchInput = (value: string) => setFilterVal(value);
-
-  const setAppPageToTrue = () => {
-    console.log("first");
-    setAddApplication(true);
-  };
+  const setAppPageToTrue = () => setAddApplication(true);
 
   return (
     <ExcelContext.Provider value={excelData}>
@@ -83,7 +78,11 @@ function App() {
         {/* Aside */}
         <Show above="lg">
           <GridItem area="aside" paddingX={5}>
-            <Aside setApplicationStatus={setAppPageToTrue} />
+            <Aside
+              canDeleteApplication={keepIndex}
+              indexOfApplicationClicked={singleApplication}
+              setApplicationStatus={setAppPageToTrue}
+            />
           </GridItem>
         </Show>
         {/* Main */}
@@ -93,6 +92,9 @@ function App() {
             <CreateApplication setApplicationStatus={setAddApplication} />
           ) : (
             <MainDisplay
+              canDeleteApp={(bool) => setKeepIndex(bool)}
+              clearClickedOnApplication={(bool) => setKeepIndex(bool)}
+              idOfApplicationClicked={(index) => setSingleApplication(index)}
               onDropDown={(value) => setDropDownValue(value)}
               toggleShowAll={onShowAllClick}
               filterValue={(data) => updateSearchInput(data)}

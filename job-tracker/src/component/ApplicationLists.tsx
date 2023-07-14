@@ -17,9 +17,15 @@ import helpers from "../helpers/helpers";
 
 interface Props {
   backButtonState: boolean;
+  indexOfClickedApplication: (index: string) => void;
+  canAppBeDeleted: (canDelete: boolean) => void;
 }
 
-const ApplicationLists = ({ backButtonState }: Props) => {
+const ApplicationLists = ({
+  backButtonState,
+  indexOfClickedApplication,
+  canAppBeDeleted,
+}: Props) => {
   const { colorMode } = useColorMode();
   const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
   const [indexOfApplication, setIndexOfApplication] = useState<null | string>(
@@ -30,8 +36,11 @@ const ApplicationLists = ({ backButtonState }: Props) => {
 
   useEffect(() => setIndexOfApplication(null), [backButtonState]);
 
-  const handleClick = (idOfSingleApplication: string): void =>
+  const handleClick = (idOfSingleApplication: string): void => {
     setIndexOfApplication(idOfSingleApplication);
+    indexOfClickedApplication(idOfSingleApplication);
+    canAppBeDeleted(true);
+  };
 
   return (
     <Box height="300px">

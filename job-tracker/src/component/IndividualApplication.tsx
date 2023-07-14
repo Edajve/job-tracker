@@ -41,7 +41,6 @@ const SingleAppDisplay = ({ idOfChoosenApp }: Props) => {
         setApplication(aSingleApplication);
       })
       .catch((error) => new Error(error));
-
   }, [idOfChoosenApp]);
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const SingleAppDisplay = ({ idOfChoosenApp }: Props) => {
       ...prevState,
       applicationID: application.id,
     }));
-  }, [application.id])
+  }, [application.id]);
 
   const { colorMode } = useColorMode();
   const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
@@ -78,14 +77,20 @@ const SingleAppDisplay = ({ idOfChoosenApp }: Props) => {
         <Card>
           <CardBody>
             <Stack divider={<StackDivider />} spacing="4">
-              {Object.entries(application).map(([key, value]) => (
+              {Object.entries(application).map(([key, value], index) => (
                 <Box
+                  key={index}
                   sx={boxStyles}
                   onClick={() => clickedOnIndividualDetail(key)}>
-                  <Heading size="xs" textTransform="uppercase">
+                  <Heading
+                    key={key}
+                    size="xs"
+                    textTransform="uppercase">
                     {key}
                   </Heading>
-                  <Text pt="2" fontSize="sm">
+                  <Text
+                  key={value}
+                   pt="2" fontSize="sm">
                     {value}
                   </Text>
                 </Box>
