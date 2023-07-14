@@ -42,13 +42,13 @@ const Aside = ({
           setSuccessMessage(true);
           setTimeout(() => {
             setSuccessMessage(false);
-          }, 2000);
+          }, 2500);
         })
         .catch((error) => {
           setErrorMessage(true);
           setTimeout(() => {
             setErrorMessage(false);
-          }, 2000);
+          }, 2500);
           throw new Error(error);
         });
 
@@ -84,13 +84,8 @@ const Aside = ({
           />
         </ListItem>
       )}
-      {successMessage && (
-        <>
-          <p>Refresh for new changes</p>
-          <ListIcon as={CheckCircleIcon} color="green.400" />
-        </>
-      )}
-      {errorMessage && <ListIcon as={WarningIcon} color="red.400" />}
+      {successMessage && <p>Application Deleted Refresh for new changes</p>}
+      {errorMessage && <p>Changes Not Saved</p>}
     </List>
   );
 };

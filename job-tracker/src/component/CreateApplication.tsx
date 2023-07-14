@@ -15,13 +15,17 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
+import App from "../App";
+import MainDisplay from "./MainDisplay";
 
 interface Props {
-    setApplicationStatus: (status: boolean) => void;
+  setApplicationStatus: (status: boolean) => void;
 }
 
 const CreateApplication = ({ setApplicationStatus }: Props) => {
   const [submit, setSubmit] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errorText, setErrorText] = useState(false);
   const [application, setApplication] = useState<ApplicationShape>({
     id: "",
     site: "",
@@ -44,19 +48,26 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
 
   useEffect(() => {
     if (application.position === "") return;
-
     apiClient
       .post("/api/v1/applications/", application)
-      .then((response) => response)
-      .catch((error) => new Error(error));
-      setSubmit(false)
+      .then((response) => {
+        setSuccess(true);
+      })
+      .catch((error) => {
+        setErrorText(true);
+        setTimeout(() => {
+          setErrorText(false);
+        }, 2500);
+        new Error(error);
+      });
+    setSubmit(false);
   }, [submit]);
 
   return (
     <Stack width="80%">
-          <Button onClick={() => setApplicationStatus(false)}>
-              <ArrowLeftIcon />
-            </Button>
+      <Button onClick={() => setApplicationStatus(false)}>
+        <ArrowLeftIcon />
+      </Button>
       <FormControl padding={5} paddingTop={12}>
         <Box paddingBottom={4}>
           <FormLabel>Site</FormLabel>
@@ -285,6 +296,9 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           <Button onClick={() => setSubmit(true)}>Submit</Button>
         </Box>
       </FormControl>
+      {success && <h4>Application added, please navigate back and refresh applications</h4>}
+      {success && <h4>Application added, please navigate back and refresh applications</h4>}
+      {errorText && <h4>Could not create this application</h4>}
     </Stack>
   );
 };

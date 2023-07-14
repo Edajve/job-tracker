@@ -47,7 +47,6 @@ const ApplicationEditor = ({
       ...prevQuery,
       applicationNewEntry: TextArea,
     }));
-    //will set to false after api request is finished
     setIsLoadingState(true);
   };
 
