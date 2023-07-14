@@ -17,7 +17,7 @@ interface Props {
   idOfChoosenApp: string;
 }
 
-export interface updateColumnQuery {
+export interface apiQueryInterface {
   applicationID: string;
   applicationColumn: string;
   applicationNewEntry: string;
@@ -28,8 +28,8 @@ const SingleAppDisplay = ({ idOfChoosenApp }: Props) => {
     {} as ApplicationShape
   );
   const [editButton, setEditButton] = useState(false);
-  const [apiQuery, setApiQuery] = useState<updateColumnQuery>(
-    {} as updateColumnQuery
+  const [apiQuery, setApiQuery] = useState<apiQueryInterface>(
+    {} as apiQueryInterface
   );
 
   useEffect(() => {
@@ -42,11 +42,14 @@ const SingleAppDisplay = ({ idOfChoosenApp }: Props) => {
       })
       .catch((error) => new Error(error));
 
+  }, [idOfChoosenApp]);
+
+  useEffect(() => {
     setApiQuery((prevState) => ({
       ...prevState,
       applicationID: application.id,
     }));
-  }, [idOfChoosenApp]);
+  }, [application.id])
 
   const { colorMode } = useColorMode();
   const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";

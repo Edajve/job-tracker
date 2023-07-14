@@ -7,10 +7,10 @@ import {
   ListIcon,
   ListItem,
   Textarea,
-  Spinner
+  Spinner,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { updateColumnQuery } from "./SingleAppDisplay";
+import { apiQueryInterface } from "./IndividualApplication";
 import apiClient from "../services/http-client";
 
 const saveChangesButtonStyles = {
@@ -23,8 +23,8 @@ const saveChangesButtonStyles = {
 
 interface Props {
   handleGoingBack(bool: boolean): void;
-  apiQuery: updateColumnQuery;
-  setApiQuery: React.Dispatch<React.SetStateAction<updateColumnQuery>>;
+  apiQuery: apiQueryInterface;
+  setApiQuery: React.Dispatch<React.SetStateAction<apiQueryInterface>>;
 }
 
 const ApplicationEditor = ({
@@ -32,21 +32,20 @@ const ApplicationEditor = ({
   apiQuery,
   setApiQuery,
 }: Props) => {
-  const [editInputBox, setEditInputBox] = useState("");
-
+  const [TextArea, setTextArea] = useState("");
   const [isLoadingState, setIsLoadingState] = useState(false);
   const [apiSuccess, setSuccess] = useState(false);
   const [apiFailed, setFailed] = useState(false);
 
   let handleInputChange = (e: any) => {
     let inputValue = e.target.value;
-    setEditInputBox(inputValue);
+    setTextArea(inputValue);
   };
 
   const saveChanges = () => {
     setApiQuery((prevQuery) => ({
       ...prevQuery,
-      applicationNewEntry: editInputBox,
+      applicationNewEntry: TextArea,
     }));
     //will set to false after api request is finished
     setIsLoadingState(true);
@@ -77,7 +76,7 @@ const ApplicationEditor = ({
           setFailed(false);
         }, 2000);
       });
-  }, [apiQuery.applicationNewEntry]);
+  }, [apiQuery]);
 
   return (
     <Box padding={10}>
@@ -86,7 +85,7 @@ const ApplicationEditor = ({
       </Heading>
       <Textarea
         borderRadius={10}
-        value={editInputBox}
+        value={TextArea}
         size="lg"
         width={{ base: "20rem", md: "40rem", lg: "70%" }}
         height="20rem"

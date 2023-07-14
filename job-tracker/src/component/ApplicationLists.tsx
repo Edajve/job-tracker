@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import ApplicationListPages from "./ApplicationListPages";
 import { useEffect, useState, useContext } from "react";
-import SingleAppDisplay from "./SingleAppDisplay";
+import SingleAppDisplay from "./IndividualApplication";
 import { ExcelContext } from "../App";
 import helpers from "../helpers/helpers";
 
@@ -30,7 +30,8 @@ const ApplicationLists = ({ backButtonState }: Props) => {
 
   useEffect(() => setIndexOfApplication(null), [backButtonState]);
 
-  const handleClick = (idOfSingleApplication: string): void => setIndexOfApplication(idOfSingleApplication)
+  const handleClick = (idOfSingleApplication: string): void =>
+    setIndexOfApplication(idOfSingleApplication);
 
   return (
     <Box height="300px">
