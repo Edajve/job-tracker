@@ -120,7 +120,7 @@ const ApplicationEditor = ({
       {apiSuccess && (
         <List paddingTop={4} paddingLeft={2}>
           <ListItem>
-            <ListIcon as={CheckCircleIcon} color="teal.400" />
+            <ListIcon as={CheckCircleIcon} color="green.400" />
             Changes Saved
           </ListItem>
         </List>
