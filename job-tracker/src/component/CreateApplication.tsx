@@ -43,6 +43,8 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
   });
 
   useEffect(() => {
+    if (application.position === "") return;
+
     apiClient
       .post("/api/v1/applications/", application)
       .then((response) => response)
@@ -57,7 +59,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
             </Button>
       <FormControl padding={5} paddingTop={12}>
         <Box paddingBottom={4}>
-          <FormLabel>Site: Done</FormLabel>
+          <FormLabel>Site</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -69,7 +71,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           </FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Date: Done</FormLabel>
+          <FormLabel>Date</FormLabel>
           <Input
             type="date"
             onChange={(event) => {
@@ -83,7 +85,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           </FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Date Applied To: Done</FormLabel>
+          <FormLabel>Date Applied To</FormLabel>
           <Input
             type="date"
             onChange={(event) => {
@@ -100,7 +102,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           </FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Company Name: Done</FormLabel>
+          <FormLabel>Company Name</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -115,7 +117,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           </FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Position: Done</FormLabel>
+          <FormLabel>Position</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -128,7 +130,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           <FormHelperText>Position you're applying for.</FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel as="legend">Full Time / Part Time: Done</FormLabel>
+          <FormLabel as="legend">Full Time / Part Time</FormLabel>
           <RadioGroup
             value={application.fulltime_Contract}
             onChange={(e) =>
@@ -145,7 +147,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           <FormHelperText>Is this a part time or contract job</FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Salary: Done</FormLabel>
+          <FormLabel>Salary</FormLabel>
           <Input
             type="number"
             onChange={(event) => {
@@ -161,7 +163,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           </FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Company Website: Done</FormLabel>
+          <FormLabel>Company Website</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -176,7 +178,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           </FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Contact Info: Done</FormLabel>
+          <FormLabel>Contact Info</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -189,7 +191,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           <FormHelperText>Any contact information to store</FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Call Back Date: Done</FormLabel>
+          <FormLabel>Call Back Date</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -202,7 +204,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           <FormHelperText>Any date or notes on call backs</FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Tech Stack: Done</FormLabel>
+          <FormLabel>Tech Stack</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -215,7 +217,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           <FormHelperText>What are they using?</FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Round 1: Done</FormLabel>
+          <FormLabel>Round 1</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -228,7 +230,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           <FormHelperText>Any tips or notes for round 1?</FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Round 2: Done</FormLabel>
+          <FormLabel>Round 2</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -241,7 +243,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           <FormHelperText>Any tips or notes for round 2?</FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Round 3: Done</FormLabel>
+          <FormLabel>Round 3</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -254,7 +256,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           <FormHelperText>Any tips or notes for round 3?</FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Final: Done</FormLabel>
+          <FormLabel>Final</FormLabel>
           <Input
             type="text"
             onChange={(event) => {
@@ -267,7 +269,7 @@ const CreateApplication = ({ setApplicationStatus }: Props) => {
           <FormHelperText>Hopefully you get here a lot</FormHelperText>
         </Box>
         <Box paddingBottom={4}>
-          <FormLabel>Notes: Done</FormLabel>
+          <FormLabel>Notes</FormLabel>
           <Input
             type="text"
             onChange={(event) => {

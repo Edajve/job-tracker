@@ -3,7 +3,7 @@ import { Grid, GridItem } from "@chakra-ui/layout";
 import { Divider, Show } from "@chakra-ui/react";
 import NavBar from "./component/NavBar";
 import MainDisplay from "./component/MainDisplay";
-import ListActions from "./component/ListActions";
+import Aside from "./component/Aside";
 import apiClient from "./services/http-client";
 import ApplicationShape from "./types/Excel";
 import CreateApplication from "./component/CreateApplication";
@@ -60,10 +60,10 @@ function App() {
 
   const updateSearchInput = (value: string) => setFilterVal(value);
 
-  const setAppPageToFalse = () => {
-    console.log("first")
-    setAddApplication(true)
-  }
+  const setAppPageToTrue = () => {
+    console.log("first");
+    setAddApplication(true);
+  };
 
   return (
     <ExcelContext.Provider value={excelData}>
@@ -83,14 +83,14 @@ function App() {
         {/* Aside */}
         <Show above="lg">
           <GridItem area="aside" paddingX={5}>
-            <ListActions setApplicationStatus={setAppPageToFalse}/>
+            <Aside setApplicationStatus={setAppPageToTrue} />
           </GridItem>
         </Show>
         {/* Main */}
         <GridItem overflow="hidden" area="main" height="300vh" marginTop="-4px">
           <Divider borderColor="gray.200" />
           {addApplication ? (
-            <CreateApplication setApplicationStatus={setAddApplication}/>
+            <CreateApplication setApplicationStatus={setAddApplication} />
           ) : (
             <MainDisplay
               onDropDown={(value) => setDropDownValue(value)}

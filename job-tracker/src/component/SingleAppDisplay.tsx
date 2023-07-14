@@ -46,7 +46,7 @@ const SingleAppDisplay = ({ idOfChoosenApp }: Props) => {
       ...prevState,
       applicationID: application.id,
     }));
-  }, [application]);
+  }, [idOfChoosenApp]);
 
   const { colorMode } = useColorMode();
   const hoverColor = colorMode === "light" ? "#e8eced" : "#3e3d47";
