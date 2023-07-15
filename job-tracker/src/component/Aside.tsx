@@ -1,8 +1,6 @@
 import {
   AddIcon,
-  CheckCircleIcon,
   DeleteIcon,
-  WarningIcon,
 } from "@chakra-ui/icons";
 import { Button, List, ListIcon, ListItem } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -21,7 +19,7 @@ const Aside = ({
   canDeleteApplication,
 }: Props) => {
   const [indexOfApplication, setIndexOfApplication] = useState("");
-  const [ableToDelete, setAbleToDelete] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
   const [deleteBtn, setDeleteBtn] = useState(false);
   const [sureToDelete, setSureToDelete] = useState<null | boolean>(null);
   const [successMessage, setSuccessMessage] = useState(false);
@@ -29,7 +27,7 @@ const Aside = ({
 
   useEffect(() => {
     setIndexOfApplication(indexOfApplicationClicked);
-    setAbleToDelete(canDeleteApplication);
+    setDisableButton(canDeleteApplication);
   }, [canDeleteApplication, indexOfApplication]);
 
   useEffect(() => {
@@ -51,15 +49,14 @@ const Aside = ({
           }, 2500);
           throw new Error(error);
         });
-
-      setSureToDelete(null);
-      setAbleToDelete(false);
     }
+    setSureToDelete(null);
+    setDisableButton(false);
     setDeleteBtn(false);
   }, [deleteBtn, sureToDelete]);
 
   const handleDelete = () => {
-    setAbleToDelete(canDeleteApplication);
+    setDisableButton(canDeleteApplication);
     setDeleteBtn(true);
   };
 
@@ -72,7 +69,7 @@ const Aside = ({
         </Button>
       </ListItem>
       <ListItem>
-        <Button isDisabled={!ableToDelete} onClick={handleDelete}>
+        <Button isDisabled={!disableButton} onClick={handleDelete}>
           <ListIcon as={DeleteIcon} color="green.500" />
           Delete Application
         </Button>
