@@ -77,6 +77,7 @@ const Aside = ({
       {deleteBtn && (
         <ListItem>
           <ConfirmDeleteApplication
+            indexOfApplicationBeingDeleted={indexOfApplication}
             setDeleteFlag={(bool) => setSureToDelete(bool)}
           />
         </ListItem>
