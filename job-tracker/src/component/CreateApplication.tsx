@@ -15,8 +15,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
-import App from "../App";
-import MainDisplay from "./MainDisplay";
 
 interface Props {
   setApplicationStatus: (status: boolean) => void;

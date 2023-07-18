@@ -12,4 +12,4 @@ Just to get an understanding of the development process to be able to thoroughly
     - Axios
 
 ## How to run this service
-Assuming you have the back end service all ready and set up (if you do not I will have the tutorial in the backened serivce). To run this service start in the root folder and navigate to directory 'job-tracker'. Run 'npm install' to install all dependencies on to your local project, run 'npm run dev'.. If you've successfully started up the back end repo, the browser with URI "http://localhost:5000" should spin up. You're ready to go!
+Assuming you have the back end service all ready and set up (if you do not I will have the tutorial in the backend repo). To run this service start in the root folder and navigate to directory 'job-tracker'. Run 'npm install' to install all dependencies on to your local project, then run 'npm run dev' to start the service.. If you've successfully started up the back end repo, the browser with URI "http://localhost:5000" should spin up. You're ready to go! If it doesn't automatically spin up then in the terminal it should give you the URL to copy and paste in your preferred browser.
